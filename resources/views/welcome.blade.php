@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('auth.register')
+    @if (Auth::check())
+        {{ Auth::user()->user_id }}
+    @else
+        @include('auth.login')
+    @endif
 @endsection
