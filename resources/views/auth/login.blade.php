@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <div class="outer">
     <div class="inner center jumbotron">
         <div class="text-center">
@@ -28,4 +31,5 @@
             <span>アカウントをお持ちではありませんか？</span><span>{!! link_to_route('signup.get', '登録する', [],['class' => 'color font-weight-bold']) !!}</span>
         </div>
     </div>
-</div>
+</div
+@endsection

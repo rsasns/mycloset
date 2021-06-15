@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <span>すでにアカウントをお持ちですか？</span><span>{!! link_to_route('login', 'ログインする', [],['class' => 'color font-weight-bold']) !!}</span>
+            <span>すでにアカウントをお持ちですか？</span><span><a class="color font-weight-bold" href="/">ログインする</a></span>
         </div>
     </div>
 </div>
