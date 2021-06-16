@@ -5,6 +5,9 @@
     <div class="inner center jumbotron">
         <div class="text-center">
             <h1 class="logo mb-4">My closet</h1>
+            
+            @include('commons.error_messages')
+            
             {!! Form::open(['route' => 'signup.post']) !!}
                 <div class="form-group">
                     {!! Form::text('user_id', null, ['class' => 'form-control','placeholder' => 'ユーザID']) !!}
@@ -31,7 +34,7 @@
                     </div>
                 </div>
             </div>
-            <span>すでにアカウントをお持ちですか？</span><span><a class="color font-weight-bold" href="/">ログインする</a></span>
+            <span>すでにアカウントをお持ちですか？</span><span><a class="color link font-weight-bold" href="/">ログインする</a></span>
         </div>
     </div>
 </div>

@@ -1,17 +1,68 @@
+body{ 
+  padding-top: 60px; 
+}
+
 span {
     display: inline-block;
+}
+
+.link:hover {
+    text-decoration:none !important;
+    opacity: 0.7 !important;
+}
+
+.line-height {
+    line-height: 3rem;
 }
 
 .logo {
     font-family: 'Raleway', sans-serif;
 }
 
+/*アクセントカラー*/
 .color {
     color: #f15922;
 }
 
 .color:hover {
     color: #f15922;
+}
+
+.btn-color {
+    color: #fff !important;
+    border-color: #f15922;
+    background-color: #f15922;
+}
+
+.btn-color:hover {
+    color: #f15922 !important;
+    border-color: #f15922 !important;
+}
+
+.btn-outline-color {
+    color: #f15922 !important;
+    border-color: #f15922 !important;
+}
+
+.btn-outline-color:hover {
+    color: #fff !important;
+    border-color: #f15922;
+    background-color: #f15922;
+}
+
+/*フォーム*/
+.form-control {
+    border: none !important;
+}
+
+*:focus {
+    border-color: none !important;
+    box-shadow: none !important;
+}
+
+/*ログイン画面*/
+.upload-label input {
+  display: none;
 }
 
 .inner{
@@ -21,15 +72,6 @@ span {
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
     -webkit-transform: translateY(-50%) translateX(-50%);
-}
-
-.form-control {
-    border: none !important;
-}
-
-*:focus {
-    border-color: none !important;
-    box-shadow: none !important;
 }
 
 .social-login {
@@ -51,4 +93,29 @@ span {
     text-align: center;
     top: -10px;
     width: 50%;
+}
+
+/*プロフィール画像*/
+.resize-circle {
+    width: 150px;
+    height: 150px;
+	object-fit: cover;
+	border-radius:50%;
+}
+.resize-circle-show {
+    width: 64px;
+    height: 64px;
+	object-fit: cover;
+	border-radius:50%;
+}
+
+/*コーディネート画像*/
+.resize {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+}
+
+.dropdown-item:active {
+    background-color: #6c757d !important;
 }

@@ -1,5 +1,5 @@
 <header class="mb-4">
-    <nav class="navbar navbar-expand-sm navbar-light fixed-top ">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top ">
         {{-- トップページへのリンク --}}
         <a class="logo navbar-brand" href="/">My closet</a>
 
@@ -11,9 +11,9 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                 {{-- マイページへのリンク --}}
-                <li class="nav-item">{!! link_to_route('users.show', {{ Auth::user->user_id }}, ['user' => Auth::id()]) !!}</li>
+                <li class="nav-item p-2">{!! link_to_route('users.show', 'マイページ', ['user' => Auth::user()->user_id ], ['class' => 'link text-dark']) !!}</li>
                 {{-- ログアウト --}}
-                <li class="nav-item">{!! link_to_route('logout.get', 'ログアウト') !!}</li>
+                <li class="nav-item p-2">{!! link_to_route('logout.get', 'ログアウト',[], ['class' => 'link text-dark']) !!}</li>
             </ul>
         </div>
     </nav>

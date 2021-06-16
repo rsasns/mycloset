@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
             $table->string('homepage')->nullable();
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
-            $table->string('tiktok')->nullable();
+            $table->string('facebook')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

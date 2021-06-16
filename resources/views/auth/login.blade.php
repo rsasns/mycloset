@@ -5,7 +5,10 @@
     <div class="inner center jumbotron">
         <div class="text-center">
             <h1 class="logo mb-4">My closet</h1>
-            {!! Form::open(['route' => 'signup.post']) !!}
+            
+            @include('commons.error_messages')
+            
+            {!! Form::open(['route' => 'login.post']) !!}
                 <div class="form-group">
                     {!! Form::email('email', null, ['class' => 'form-control','placeholder' => 'メール']) !!}
                 </div>
@@ -28,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <span>アカウントをお持ちではありませんか？</span><span>{!! link_to_route('signup.get', '登録する', [],['class' => 'color font-weight-bold']) !!}</span>
+            <span>アカウントをお持ちではありませんか？</span><span>{!! link_to_route('signup.get', '登録する', [],['class' => 'color link font-weight-bold']) !!}</span>
         </div>
     </div>
 </div
