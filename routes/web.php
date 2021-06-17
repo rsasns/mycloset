@@ -26,6 +26,14 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController', ['only' => ['edit', 'update', 'destroy']]);
     Route::resource('cordinates', 'CordinatesController', ['only' => ['create', 'store', 'edit', 'update','destroy']]);
+    // フォロー、アンフォローの処理
+    Route::group(['prefix' => 'users/{user_id}'], function () {
+        Route::post('follow', 'UserFollowController@store')->name('user.follow');
+        Route::delete('unfollow', 'UserFollowController@destroy')->name('user.unfollow');
+        Route::get('followings', 'UsersController@followings')->name('users.followings');
+        Route::get('followers', 'UsersController@followers')->name('users.followers');
+
+    });
 });
 
 // 制限なしの処理

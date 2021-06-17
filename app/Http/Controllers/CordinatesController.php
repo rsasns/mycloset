@@ -11,7 +11,9 @@ class CordinatesController extends Controller
     {
         $data = [];
         // 全投稿を取得
-        $cordinates = Cordinate::all();
+        $all = Cordinate::all();
+        // 新着順に並び替え
+        $cordinates = $all->sortByDesc('created_at');
         
         $data = [
             'cordinates' => $cordinates,

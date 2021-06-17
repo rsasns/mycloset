@@ -34,8 +34,8 @@ span {
 
 .btn-color {
     color: #fff !important;
-    border-color: #f15922;
-    background-color: #f15922;
+    border-color: #f15922 !important;
+    background-color: #f15922 !important;
 }
 
 .btn-color:hover {
@@ -50,8 +50,8 @@ span {
 
 .btn-outline-color:hover {
     color: #fff !important;
-    border-color: #f15922;
-    background-color: #f15922;
+    border-color: #f15922 !important;
+    background-color: #f15922 !important;
 }
 
 /*フォーム*/
@@ -141,4 +141,8 @@ span {
 .card-header {
     background-color: #fff !important;
     padding : 0.1rem !important;
+}
+
+.card-footer {
+    background-color: #fff !important;
 }

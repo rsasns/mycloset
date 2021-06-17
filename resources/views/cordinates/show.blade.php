@@ -24,8 +24,20 @@
                                 <img class="resize-circle-show mr-3" src="https://mycloset-sakataran.s3-ap-northeast-1.amazonaws.com/{{ $cordinates->user->image }}">
                                 </a>
                                 <div class="media-body">
-                                    <h5 class="mt-0">{{ $cordinates->user->user_id }}</h5>
-                                    {{ $cordinates->user->name }}
+                                    <h5 class="mt-0">{{ $cordinates->user->name }}</h5>
+                                    @if ($cordinates->userheight_hidden != 1 && $cordinates->user->height !== null)
+                                        <span class="mr-1">{{ $cordinates->user->height }}cm</span>
+                                    @endif
+                                    @if ($cordinates->user->sex_hidden != 1 && $cordinates->user->sex !== null)
+                                        @if ($cordinates->user->sex == 0 )
+                                            <span class="mr-1">MEN</span>
+                                        @else
+                                            <span class="mr-1">WOMEN</span>
+                                        @endif
+                                    @endif
+                                    @if ($cordinates->user->age_hidden != 1 && $cordinates->user->age !== null)
+                                        <span>age{{ $cordinates->user->age }}</span>
+                                    @endif
                                 </div>
                             </div>
                             @if (Auth::id() == $cordinates->user_id)
@@ -40,8 +52,8 @@
                                     {!! Form::close() !!}
                                 </div>
                             </div>
-                            </div>
                             @endif
+                        </div>
                             <hr>
                             <div class="mb-2">
                                 {!! nl2br($cordinates->text) !!}

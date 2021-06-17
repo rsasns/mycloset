@@ -13,25 +13,28 @@
             </div>
             <div class="col-md-8">
                 <div class="d-flex justify-content-between">
-                <h3>{{ $user->user_id }}</h3>
+                <h3>{{ $user->name }}</h3>
                 <p></p>
-                @if (Auth::id() != $user->id)
-                    @if (Auth::user()->is_following($user->id))
-                        {{-- アンフォローボタンのフォーム --}}
-                        <button type="button" class="btn rounded-pill btn-color">フォロー中</button>
-                    @else
-                        {{-- フォローボタンのフォーム --}}
-                        <button type="button" class="btn rounded-pill btn-outline-color">フォロー</button>
-                    @endif
-                @endif
+                {{-- フォローボタン　--}}
+                @include('commons.follow_button')
                 </div>
                 <p></p>
                 <div class="d-flex justify-content-start">
-                    <span class="mr-4">xxxフォロワー</span><span class="mr-4">xxxフォロー中</span><span>xxxクリップ</span>
+                    <span class="mr-4">
+                        <a href="{{ route('users.followers', ['user_id' => $user->user_id]) }}" class="text-dark link {{ Request::routeIs('users.followers') ? 'active' : '' }}">
+                        <span class="font-weight-bold">{{ $user->followers_count }}</span>フォロワー
+                        </a>
+                    </span>
+                    <span class="mr-4">
+                        <a href="{{ route('users.followings', ['user_id' => $user->user_id]) }}" class="text-dark link {{ Request::routeIs('users.followings') ? 'active' : '' }}">
+                        <span class="font-weight-bold">{{ $user->followings_count }}</span>フォロー中
+                        </a>
+                    </span>
+                    <span>xxxクリップ</span>
                 </div>
             </div>
             <div class="col-md-12">
-                <span class="font-weight-bold line-height mr-4">{{ $user->name }}</span>
+                <span class="font-weight-bold line-height mr-4">{{ '@'.$user->user_id }}</span>
                     @if ($user->height_hidden != 1 && $user->height !== null)
                         <span class="mr-1">{{ $user->height }}cm</span>
                     @endif
@@ -88,11 +91,11 @@
             @endforeach
             </div>
         @else
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-12">
-                    <div class="alert alert-secondary" role="alert">
-                        <i class="far fa-sticky-note fa-7x"></i>
-                        <h1>投稿がありません</h1>
+                    <div class="alert alert-secondary text-center" role="alert">
+                        <i class="far fa-sticky-note fa-5x"></i>
+                        <h2>投稿がありません</h2>
                     </div>
                 </div>
             </div>

@@ -14,6 +14,7 @@
                 </div>
                 <div class="col-md-3 none">
                     @include('commons.menubar')
+                    @include('users.index')
                 </div>
             </div>
         </div>
