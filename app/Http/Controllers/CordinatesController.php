@@ -18,8 +18,15 @@ class CordinatesController extends Controller
         $data = [
             'cordinates' => $cordinates,
         ];
+        
+        $users = User::get();
+
+        // 関係するモデルの件数を取得
+        $attentionUsers = User::withCount('followers')
+        ->orderBy('followers_count','desc')->paginate(4);
+        
         // welcomeビューでそれらを表示
-        return view('welcome', $data);
+        return view('welcome', compact('data', 'cordinates','users', 'attentionUsers'));
     }
     
     public function show($id)

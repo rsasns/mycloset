@@ -20,9 +20,15 @@
                     <div class="col-md-12">
                         <div class="d-flex  justify-content-between">
                             <div class="media">
-                                <a class="link" href="{{ route('users.show', $cordinates->user->user_id) }}">
-                                <img class="resize-circle-show mr-3" src="https://mycloset-sakataran.s3-ap-northeast-1.amazonaws.com/{{ $cordinates->user->image }}">
-                                </a>
+                                @if($cordinates->user->image == null || $cordinates->user->image == '')
+                                    <a class="link text-dark" href="{{ route('users.show', $cordinates->user->user_id) }}">
+                                    <i class="fas fa-user-circle fa-2x"></i>
+                                    </a>
+                                @else
+                                    <a class="link" href="{{ route('users.show', $cordinates->user->user_id) }}">
+                                    <img class="resize-circle-show mr-3" src="https://mycloset-sakataran.s3-ap-northeast-1.amazonaws.com/{{ $cordinates->user->image }}">
+                                    </a>
+                                @endif
                                 <div class="media-body">
                                     <h5 class="mt-0">{{ $cordinates->user->name }}</h5>
                                     @if ($cordinates->userheight_hidden != 1 && $cordinates->user->height !== null)

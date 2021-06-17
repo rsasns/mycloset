@@ -14,14 +14,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-        // 全ユーザを取得
-        $users = User::get();
-
-        // 関係するモデルの件数をロード
-        $attentionUser = UserFollowController::withCount('follow_id')->orderBy('user_count','desc')->get();
-        
-        // welcomeビューでそれらを表示
-        return view('users.index', compact('users', 'attentionUser'));
+        //
     }
 
     public function show($id)
