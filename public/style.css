@@ -6,15 +6,19 @@ span {
     display: inline-block;
 }
 
-.link:hover {
-    text-decoration:none !important;
-    opacity: 0.7 !important;
-}
-
 .line-height {
     line-height: 3rem;
 }
 
+@media screen and (max-width: 720px){
+.none {display:none}
+}
+
+@media screen and (min-width: 720px){
+.appear {display:none}
+}
+
+/*ロゴ*/
 .logo {
     font-family: 'Raleway', sans-serif;
 }
@@ -53,11 +57,6 @@ span {
 /*フォーム*/
 .form-control {
     border: none !important;
-}
-
-*:focus {
-    border-color: none !important;
-    box-shadow: none !important;
 }
 
 /*ログイン画面*/
@@ -102,9 +101,17 @@ span {
 	object-fit: cover;
 	border-radius:50%;
 }
+
 .resize-circle-show {
     width: 64px;
     height: 64px;
+	object-fit: cover;
+	border-radius:50%;
+}
+
+.resize-circle-index {
+    width: 2.5rem;
+    height: 2.5rem;
 	object-fit: cover;
 	border-radius:50%;
 }
@@ -116,6 +123,22 @@ span {
     height: auto;
 }
 
+/*bootstrap4編集*/
 .dropdown-item:active {
     background-color: #6c757d !important;
+}
+
+*:focus {
+    border-color: none !important;
+    box-shadow: none !important;
+}
+
+.link:hover {
+    text-decoration:none !important;
+    opacity: 0.7 !important;
+}
+
+.card-header {
+    background-color: #fff !important;
+    padding : 0.1rem !important;
 }

@@ -1,7 +1,8 @@
 <?php
 namespace App\Http\Controllers;
-use App\Cordinate; //追加
 use Illuminate\Http\Request;
+use App\User; //追加
+use App\Cordinate; //追加
 use Illuminate\Support\Str; // 追加
 use \Storage; // 追加
 class CordinatesController extends Controller
@@ -9,20 +10,13 @@ class CordinatesController extends Controller
     public function index()
     {
         $data = [];
-        if (\Auth::check()) { // 認証済みの場合
-            // 認証済みユーザを取得
-            $user = \Auth::user();
-            // ユーザの投稿の一覧を作成日時の降順で取得
-            // （後のChapterで他ユーザの投稿も取得するように変更しますが、現時点ではこのユーザの投稿のみ取得します）
-            $cordinates = $user->cordinates()->orderBy('created_at', 'desc')->paginate(10);
-
-            $data = [
-                'user' => $user,
-                'cordinates' => $cordinates,
-            ];
-        }
-
-        // Welcomeビューでそれらを表示
+        // 全投稿を取得
+        $cordinates = Cordinate::all();
+        
+        $data = [
+            'cordinates' => $cordinates,
+        ];
+        // welcomeビューでそれらを表示
         return view('welcome', $data);
     }
     
