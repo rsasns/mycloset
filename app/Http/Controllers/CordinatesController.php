@@ -19,6 +19,7 @@ class CordinatesController extends Controller
             'cordinates' => $cordinates,
         ];
         
+        //ユーザ全数取得
         $users = User::get();
 
         // 関係するモデルの件数を取得
@@ -27,6 +28,32 @@ class CordinatesController extends Controller
         
         // welcomeビューでそれらを表示
         return view('welcome', compact('data', 'cordinates','users', 'attentionUsers'));
+    }
+    
+    public function feed()
+    {
+        $data = [];
+        if (\Auth::check()) {
+            // 認証済みユーザ（閲覧者）を取得
+            $user = \Auth::user();
+            // ユーザとフォロー中ユーザの投稿の一覧を作成日時の降順で取得
+            $cordinates = $user->feed_cordinates()->orderBy('created_at', 'desc')->paginate(10);
+            
+            $data = [
+                'user' => $user,
+                'cordinates' => $cordinates,
+            ];
+            
+            //ユーザ全数取得
+            $users = User::get();
+    
+            // 関係するモデルの件数を取得
+            $attentionUsers = User::withCount('followers')
+            ->orderBy('followers_count','desc')->paginate(4);
+            
+            // feedビューでそれらを表示
+            return view('feed', compact('data', 'cordinates','users', 'attentionUsers'));
+        }
     }
     
     public function show($id)

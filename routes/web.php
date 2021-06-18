@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', 'CordinatesController@index');
+Route::get('/', 'CordinatesController@index')->name('index');
+Route::get('/feed', 'CordinatesController@feed')->name('feed');
 
 
 // ユーザ登録
