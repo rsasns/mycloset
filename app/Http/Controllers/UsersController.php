@@ -226,4 +226,31 @@ class UsersController extends Controller
             'users' => $followers,
         ]);
     }
+    
+    /**
+     * ユーザのクリップ一覧ページを表示するアクション。
+     *
+     * @param  $id  ユーザのid
+     * @return \Illuminate\Http\Response
+     */
+     public function favorites($id)
+    {
+        // user_idの値でユーザを検索して取得
+        $user = User::where('user_id',$id)->first();
+        if(empty($user)) {
+            return \App::abort(404);
+        }
+        
+        // 関係するモデルの件数をロード
+        $user->loadRelationshipCounts();
+
+        // ユーザのクリップ一覧を投稿作成日時の降順で取得
+        $favorites = $user->favorites()->orderBy('created_at', 'desc')->get();
+
+        // クリップ一覧ビューでそれらを表示
+        return view('users.favorites', [
+            'user' => $user,
+            'favorites' => $favorites,
+        ]);
+    }
 }

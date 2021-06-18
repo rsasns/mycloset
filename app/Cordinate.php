@@ -15,4 +15,21 @@ class Cordinate extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
+    /**
+     * この投稿をクリップしたユーザ。（ Userモデルとの関係を定義）
+     */
+    public function favorites_users()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'cordinate_id', 'user_id')->withTimestamps();
+    }
+    
+    /**
+     * この投稿に関係するモデルの件数をロードする。
+     */
+    public function loadRelationshipCounts()
+    {
+        $this->loadCount(['favorites_users']);
+    }
+    
 }

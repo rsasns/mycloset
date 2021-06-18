@@ -10,7 +10,7 @@
                     <div class="mb-2">
                         <div class="col-md-12">
                             <button type="button" class="btn btn-outline-color rounded-pill mr-2"><i class="fas fa-heart"></i></button><span>xxxスキ！</span>
-                            <button type="button" class="btn btn-outline-dark rounded-pill mr-2"><i class="fas fa-paperclip"></i></button><span>xxxクリップ</span>
+                            @include('commons.clip_button')
                         </div>
                     </div>
             </div>

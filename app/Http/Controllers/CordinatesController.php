@@ -9,15 +9,12 @@ class CordinatesController extends Controller
 {
     public function index()
     {
-        $data = [];
         // 全投稿を取得
-        $all = Cordinate::all();
-        // 新着順に並び替え
-        $cordinates = $all->sortByDesc('created_at');
+        $all = Cordinate::get();
         
-        $data = [
-            'cordinates' => $cordinates,
-        ];
+        // 関係するモデルの件数を取得し、新着順に並び替え
+        $cordinates = Cordinate::withCount('favorites_users')
+        ->orderBy('created_at','desc')->get();
         
         //ユーザ全数取得
         $users = User::get();
@@ -27,22 +24,19 @@ class CordinatesController extends Controller
         ->orderBy('followers_count','desc')->paginate(4);
         
         // welcomeビューでそれらを表示
-        return view('welcome', compact('data', 'cordinates','users', 'attentionUsers'));
+        return view('welcome', compact('all', 'cordinates','users', 'attentionUsers'));
     }
     
     public function feed()
     {
         $data = [];
         if (\Auth::check()) {
-            // 認証済みユーザ（閲覧者）を取得
-            $user = \Auth::user();
-            // ユーザとフォロー中ユーザの投稿の一覧を作成日時の降順で取得
-            $cordinates = $user->feed_cordinates()->orderBy('created_at', 'desc')->paginate(10);
+            // 全投稿を取得
+            $all = Cordinate::get();
             
-            $data = [
-                'user' => $user,
-                'cordinates' => $cordinates,
-            ];
+            // 関係するモデルの件数を取得し、新着順に並び替え
+            $cordinates = Cordinate::withCount('favorites_users')
+            ->orderBy('created_at','desc')->get();
             
             //ユーザ全数取得
             $users = User::get();
@@ -51,20 +45,24 @@ class CordinatesController extends Controller
             $attentionUsers = User::withCount('followers')
             ->orderBy('followers_count','desc')->paginate(4);
             
-            // feedビューでそれらを表示
-            return view('feed', compact('data', 'cordinates','users', 'attentionUsers'));
+        // welcomeビューでそれらを表示
+        return view('feed', compact('all', 'cordinates','users', 'attentionUsers'));
         }
     }
     
     public function show($id)
     {
         // idの値で投稿を検索して取得
-        $cordinates = Cordinate::findOrFail($id);
-
+        $cordinates = Cordinate::where('id',$id)->first();
+        if(empty($cordinates)) {
+            return \App::abort(404);
+        }
+        
+        // 関係するモデルの件数を取得
+        $favorites_users = $cordinates->loadCount('favorites_users');
+        
         // 詳細ビューでそれを表示
-        return view('cordinates.show', [
-            'cordinates' => $cordinates,
-        ]);
+        return view('cordinates.show',  compact('cordinates', 'favorites_users',));
     }
     
     public function create()

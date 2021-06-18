@@ -27,6 +27,8 @@
                     <div class="mb-2">
                         @include('commons.menubar')
                     </div>
+                    {{-- ユーザ一覧 --}}
+                    @include('users.hot')
                 </div>
             </div>
         </div>

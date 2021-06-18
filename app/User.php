@@ -62,11 +62,19 @@ class User extends Authenticatable
     }
 
     /**
+     * このユーザをクリップした投稿。（ Coridnateモデルとの関係を定義）
+     */
+    public function favorites()
+    {
+        return $this->belongsToMany(Cordinate::class, 'favorites', 'user_id', 'cordinate_id')->withTimestamps();
+    }
+
+    /**
      * このユーザに関係するモデルの件数をロードする。
      */
     public function loadRelationshipCounts()
     {
-        $this->loadCount(['cordinates', 'followings', 'followers']);
+        $this->loadCount(['cordinates', 'followings', 'followers', 'favorites']);
     }
     
      /**
@@ -138,5 +146,58 @@ class User extends Authenticatable
         $userIds[] = $this->id;
         // それらのユーザが所有する投稿に絞り込む
         return Cordinate::whereIn('user_id', $userIds);
+    }
+    
+    /**
+     * $cordinateIdで指定された投稿をクリップする。
+     *
+     * @param  int  $cordinateId
+     * @return bool
+     */
+    public function favorite($cordinateId)
+    {
+        // すでにクリップしているかの確認
+        $exist = $this->is_favorite($cordinateId);
+
+        if ($exist) {
+            // すでにクリップしていれば何もしない
+            return false;
+        } else {
+            // 違うならクリップする
+            $this->favorites()->attach($cordinateId);
+            return true;
+        }
+    }
+
+    /**
+     * $cordinateIdで指定された投稿をクリップする。
+     *
+     * @param  int  $userId
+     * @return bool
+     */
+    public function unfavorite($cordinateId)
+    {
+        // すでにクリップしているかの確認
+        $exist = $this->is_favorite($cordinateId);
+
+        if ($exist ) {
+            // すでにクリップしていれば外す
+            $this->favorites()->detach($cordinateId);
+            return true;
+        } else { //違うならなにもしない
+            return false;
+        }
+    }
+
+    /**
+     * 指定された $coridnateIdの投稿をこのユーザがクリップしているか調べる。クリップしているならtrueを返す。
+     *
+     * @param  int  $cordinateId
+     * @return bool
+     */
+    public function is_favorite($cordinateId)
+    {
+        // このユーザがクリップしている投稿の中に $coridnateIdのものが存在するか
+        return $this->favorites()->where('cordinate_id', $cordinateId)->exists();
     }
 }

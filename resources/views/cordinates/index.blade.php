@@ -30,15 +30,16 @@
                                     <small class="text-secondary d-flex align-items-start">{{ $cordinate->user->height }}cm</small>
                                 @endif
                             </div>
+                            {{-- フォローボタンの表示 --}}
                             <div class="col text-right mt-2">
                                 @if (Auth::id() != $cordinate->user->id)
                                     @if (Auth::user()->is_following($cordinate->user->id))
-                                        {{-- アンフォローボタンのフォーム --}}
+                                        {{-- アンフォロー --}}
                                         {!! Form::open(['route' => ['user.unfollow', $cordinate->user->id], 'method' => 'delete']) !!}
                                             {!! Form::submit('フォロー中', ['class' => "btn btn-sm rounded-pill btn-secondary"]) !!}
                                         {!! Form::close() !!}
                                     @else
-                                        {{-- フォローボタンのフォーム --}}
+                                        {{-- フォロー --}}
                                         {!! Form::open(['route' => ['user.follow', $cordinate->user->id]]) !!}
                                             {!! Form::submit('フォロー', ['class' => "btn btn-sm rounded-pill btn-outline-secondary"]) !!}
                                         {!! Form::close() !!}
@@ -53,7 +54,8 @@
                 </a>
             <div class="card-footer p-1">
                 <span><button type="button" class="btn btn-sm btn-outline-color rounded-pill mr-2"><i class="fas fa-heart"></i></button><small>xxxスキ！</small></span>
-                <span><button type="button" class="btn btn-sm btn-outline-dark rounded-pill mr-2"><i class="fas fa-paperclip"></i></button><small>xxxクリップ</small></span>
+                {{-- クリップボタンの表示 --}}
+                @include('commons.clip_button')
             </div>
             </div>
         </div>

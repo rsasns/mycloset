@@ -84,12 +84,12 @@
                 @endif
             </div>
         </div>
-        @if (count($cordinates) > 0)
+        @if (count($favorites) > 0)
             <div class="row d-flex text-center">
-            @foreach ($cordinates as $cordinate)
+            @foreach ($favorites as $favorite)
                 <div class="col-4 p-2">
-                    <a class="link" href="{{ route('cordinates.show', $cordinate->id) }}">
-                        <img class="resize" src="https://mycloset-sakataran.s3-ap-northeast-1.amazonaws.com/{{ $cordinate->image }}">
+                    <a class="link" href="{{ route('cordinates.show', $favorite->id) }}">
+                        <img class="resize" src="https://mycloset-sakataran.s3-ap-northeast-1.amazonaws.com/{{ $favorite->image }}">
                     </a>
                 </div>
             @endforeach
@@ -98,8 +98,8 @@
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="alert alert-secondary text-center" role="alert">
-                        <i class="far fa-sticky-note fa-5x"></i>
-                        <h2>投稿がありません</h2>
+                        <i class="fas fa-paperclip fa-5x"></i>
+                        <h2>クリップがありません</h2>
                     </div>
                 </div>
             </div>
