@@ -39,8 +39,9 @@ span {
 }
 
 .btn-color:hover {
-    color: #f15922 !important;
-    border-color: #f15922 !important;
+    color: #fff !important;
+    background-color: #e0531f !important;
+    border-color: #e0531f !important;
 }
 
 .btn-outline-color {

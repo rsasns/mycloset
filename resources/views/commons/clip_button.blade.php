@@ -8,6 +8,7 @@
                 {!! Form::close() !!}
             </span>
         @else
+            {{-- クリップする --}}
             <span>
                 {!! Form::open(['route' => ['user.favorite', $cordinates->id]]) !!}
                     {!! Form::button('<i class="fas fa-paperclip"></i>', ['class' => "btn rounded-pill btn-outline-dark", 'type' => 'submit']) !!}
@@ -25,6 +26,7 @@
                 {!! Form::close() !!}
             </span>
         @else
+            {{-- クリップする --}}
             <span>
                 {!! Form::open(['route' => ['user.favorite', $cordinate->id]]) !!}
                     {!! Form::button('<i class="fas fa-paperclip"></i>', ['class' => "btn btn-sm rounded-pill btn-outline-dark", 'type' => 'submit']) !!}

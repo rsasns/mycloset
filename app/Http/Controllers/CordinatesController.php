@@ -13,8 +13,12 @@ class CordinatesController extends Controller
         $all = Cordinate::get();
         
         // 関係するモデルの件数を取得し、新着順に並び替え
-        $cordinates = Cordinate::withCount('favorites_users')
+        $cordinates = Cordinate::withCount(['favorites_users','nice_users'])
         ->orderBy('created_at','desc')->get();
+        
+        // 関係するモデルの件数を取得し、いいね順に並び替え
+        $hotCordinates = Cordinate::withCount(['favorites_users','nice_users'])
+        ->orderBy('nice_users_count','desc')->limit(3)->get();
         
         //ユーザ全数取得
         $users = User::get();
@@ -24,7 +28,7 @@ class CordinatesController extends Controller
         ->orderBy('followers_count','desc')->paginate(4);
         
         // welcomeビューでそれらを表示
-        return view('welcome', compact('all', 'cordinates','users', 'attentionUsers'));
+        return view('welcome', compact('all', 'cordinates', 'hotCordinates', 'users', 'attentionUsers'));
     }
     
     public function feed()
@@ -35,7 +39,7 @@ class CordinatesController extends Controller
             $all = Cordinate::get();
             
             // 関係するモデルの件数を取得し、新着順に並び替え
-            $cordinates = Cordinate::withCount('favorites_users')
+            $cordinates = Cordinate::withCount(['favorites_users','nice_users'])
             ->orderBy('created_at','desc')->get();
             
             //ユーザ全数取得
@@ -59,7 +63,7 @@ class CordinatesController extends Controller
         }
         
         // 関係するモデルの件数を取得
-        $favorites_users = $cordinates->loadCount('favorites_users');
+        $favorites_users = $cordinates->loadCount(['favorites_users','nice_users']);
         
         // 詳細ビューでそれを表示
         return view('cordinates.show',  compact('cordinates', 'favorites_users',));

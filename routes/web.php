@@ -36,10 +36,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('followers', 'UsersController@followers')->name('users.followers');
         Route::get('favorites', 'UsersController@favorites')->name('users.favorites');
     });
-    // クリップ機能の処理
+    // クリップ機能、いいね機能の処理
     Route::group(['prefix' => 'cordinates/{id}'], function () {
         Route::post('favorite', 'FavoritesController@store')->name('user.favorite');
         Route::delete('unfavorite', 'FavoritesController@destroy')->name('user.unfavorite');
+        Route::post('onnice', 'NiceController@store')->name('user.onnice');
+        Route::delete('unnice', 'NiceController@destroy')->name('user.unnice');
     });
 });
 

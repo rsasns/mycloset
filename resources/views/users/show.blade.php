@@ -77,12 +77,22 @@
                 @endif
                 <p></p>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 mb-2">
                 @if (Auth::id() === $user->id)
                     {!! link_to_route('users.edit', 'プロフィールを編集する', ['user' => $user->user_id], ['class' => 'btn btn-block btn-outline-dark rounded-pill']) !!}
                     {!! link_to_route('cordinates.create', 'コーディネートを投稿する', ['user' => $user->user_id], ['class' => 'btn btn-block btn-outline-color rounded-pill']) !!}
                 @endif
             </div>
+        </div>
+        <div class="mx-auto" style="width:160px">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link active disabled" href="#">投稿</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="{{ route('users.favorites', ['user_id' => $user->user_id]) }}" class="text-dark link {{ Request::routeIs('users.favorites') ? 'active' : '' }}">クリップ</a>
+                </li>
+            </ul>
         </div>
         @if (count($cordinates) > 0)
             <div class="row d-flex text-center">

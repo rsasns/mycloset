@@ -62,19 +62,27 @@ class User extends Authenticatable
     }
 
     /**
-     * このユーザをクリップした投稿。（ Coridnateモデルとの関係を定義）
+     * このユーザがクリップした投稿。（ Coridnateモデルとの関係を定義）
      */
     public function favorites()
     {
         return $this->belongsToMany(Cordinate::class, 'favorites', 'user_id', 'cordinate_id')->withTimestamps();
     }
-
+    
+    /**
+     * このユーザがいいね！した投稿。（ Coridnateモデルとの関係を定義）
+     */
+    public function nice()
+    {
+        return $this->belongsToMany(Cordinate::class, 'nice', 'user_id', 'cordinate_id')->withTimestamps();
+    }
+    
     /**
      * このユーザに関係するモデルの件数をロードする。
      */
     public function loadRelationshipCounts()
     {
-        $this->loadCount(['cordinates', 'followings', 'followers', 'favorites']);
+        $this->loadCount(['cordinates', 'followings', 'followers', 'favorites', 'nice']);
     }
     
      /**
@@ -199,5 +207,58 @@ class User extends Authenticatable
     {
         // このユーザがクリップしている投稿の中に $coridnateIdのものが存在するか
         return $this->favorites()->where('cordinate_id', $cordinateId)->exists();
+    }
+    
+    /**
+     * $cordinateIdで指定された投稿をいいね！する。
+     *
+     * @param  int  $cordinateId
+     * @return bool
+     */
+    public function onnice($cordinateId)
+    {
+        // すでにいいねしているかの確認
+        $exist = $this->is_nice($cordinateId);
+
+        if ($exist) {
+            // すでにいいねしていれば何もしない
+            return false;
+        } else {
+            // 違うならいいねする
+            $this->nice()->attach($cordinateId);
+            return true;
+        }
+    }
+
+    /**
+     * $cordinateIdで指定された投稿をいいね！する。
+     *
+     * @param  int  $userId
+     * @return bool
+     */
+    public function unnice($cordinateId)
+    {
+        // すでにいいねしているかの確認
+        $exist = $this->is_nice($cordinateId);
+
+        if ($exist ) {
+            // すでにいいねしていれば外す
+            $this->nice()->detach($cordinateId);
+            return true;
+        } else { //違うならなにもしない
+            return false;
+        }
+    }
+
+    /**
+     * 指定された $coridnateIdの投稿をこのユーザがいいねしているか調べる。いいねしているならtrueを返す。
+     *
+     * @param  int  $cordinateId
+     * @return bool
+     */
+    public function is_nice($cordinateId)
+    {
+        // このユーザがいいねしている投稿の中に $coridnateIdのものが存在するか
+        return $this->nice()->where('cordinate_id', $cordinateId)->exists();
     }
 }

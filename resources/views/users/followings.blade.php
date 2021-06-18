@@ -4,7 +4,7 @@
     @include('commons.navbar')
     <div class="container">
         <div class="row col">
-            <p><a class="link text-dark" href="{{ url()->previous() }}"><i class="fas fa-arrow-left mr-2"></i>前の画面に戻る</a></p>
+            <p><a class="link text-dark" href="{{ route('users.show', $user->user_id) }}"><i class="fas fa-arrow-left mr-2"></i>プロフィールへ戻る</a></p>
         </div>
         <div class="row col mb-2">
             @if($user->image == null || $user->image == '')
