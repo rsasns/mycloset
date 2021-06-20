@@ -6,7 +6,7 @@
         @include('commons.error_messages')
         <div class="row">
             <div class ="col-md-12">
-                {!! Form::open(['route' => ['cordinates.store'], 'enctype' => 'multipart/form-data']) !!}
+                {!! Form::open(['route' => ['cordinates.store'], 'enctype' => 'multipart/form-data', 'autocomplete'=> 'off']) !!}
                 <label class="upload-label btn btn-outline-dark rounded-pill">
                     画像を選択する
                     {!! Form::file('image',['accept' => '.png, .jpeg, .jpg, .gif','class' => 'file']) !!}
@@ -19,6 +19,12 @@
                     {!! Form::label('text', 'コーディネート説明', ['class' => 'col-form-label']) !!}
                     {!! Form::textarea('text', null, ['class' => 'form-control border border-dark', 'rows' => '3']) !!}
                 </div>
+                
+                <div class="form-group">
+                    {!! Form::label('tags', 'タグ', ['class' => 'col-form-label']) !!}
+                    {!! Form::text('tags', null, ['class' => 'form-control border border-dark','placeholder' => '#tag#tag#tag']) !!}
+                </div>
+                    
             {!! Form::submit('投稿する', ['class' => 'btn btn-block btn-outline-color rounded-pill']) !!}
             </div>
         {!! Form::close() !!}

@@ -39,6 +39,7 @@
     @endif
     </div>
     <div class="col-md-12">
+        @include('commons.error_messages')
         @if (Auth::check())
         <hr>
         {!! Form::open(['url' => route('comments.store',$cordinate->id)]) !!}

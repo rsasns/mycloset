@@ -1,4 +1,4 @@
-<p class="lead"><i class="fab fa-hotjar mr-1"></i>人気ユーザ</p>
+<p class="lead"><i class="fas fa-flag mr-1 mt-3"></i>人気ユーザ</p>
 <hr>
 @foreach($attentionUsers as $attentionUser)
     <div class="media mb-2">

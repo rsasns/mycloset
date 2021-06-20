@@ -35,13 +35,12 @@ class CommentsController extends Controller
         // idの値で投稿に紐づくコメントを検索して取得
         $comment = Comment::findOrFail($id);
         // コメントに紐づく投稿を取得
-        $cordinate = $comment->cordinate();
+        $cordinate = $comment->cordinate()->first();
         
         // 認証済みユーザ（閲覧者）がそのコメントの投稿者または紐づく投稿の投稿者である場合は、コメントを削除
-        if (\Auth::id() === $comment->user_id || $cordinate->user_id) {
+        if (\Auth::id() === $comment->user_id || \Auth::id() === $cordinate->user_id) {
             $comment->delete();
         }
-    
         // 前のURLへリダイレクトさせる
         return redirect()->route('cordinates.show', $cordinate->id);
     }

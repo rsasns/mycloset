@@ -65,10 +65,14 @@
                                 {!! nl2br($cordinate->text) !!}
                                 <div class="text-secondary">Posted by {{ $cordinate->created_at }}</div>
                             </div>
-                            <div>
-                                <button type="button" class="btn btn-outline-secondary btn-sm">#tag</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm">#tag</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm">#tag</button>
+                            <div class="d-flex flex-wrap">
+                                @foreach( $cordinate->tags as $tag )
+                                <form class="form-inline" action="{{ url('/search')}}" method="post">
+                                {{ csrf_field()}}
+                                {{method_field('get')}}
+                                <button type="submit" class="btn btn-outline-secondary btn-sm" name="keyword" value="{{ $tag->tag }}">#{{ $tag->tag }}</button>
+                                </form>
+                                @endforeach
                             </div>
                         </div>
                     </div>    

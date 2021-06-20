@@ -13,6 +13,7 @@
 
 Route::get('/', 'CordinatesController@index')->name('index');
 Route::get('/feed', 'CordinatesController@feed')->name('feed');
+Route::get('/search', 'CordinatesController@search')->name('search');
 
 
 // ユーザ登録
@@ -33,7 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
     // コメント機能
     Route::post('cordinates/{id}', 'CommentsController@store')->name('comments.store');
     Route::delete('cordinates/{id}/comment', 'CommentsController@destroy')->name('comments.destroy');
-
+    
     // フォロー機能、クリップ一覧表示の処理
     Route::group(['prefix' => 'users/{user_id}'], function () {
         Route::post('follow', 'UserFollowController@store')->name('user.follow');

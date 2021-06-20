@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User; //追加
 use App\Cordinate; //追加
+use App\Tag; //追加
 use Illuminate\Support\Str; // 追加
 use \Storage; // 追加
 class CordinatesController extends Controller
@@ -21,8 +22,12 @@ class CordinatesController extends Controller
         $attentionUsers = User::withCount('followers')
         ->orderBy('followers_count','desc')->paginate(4);
         
+        // 全タグの投稿との紐づけ降順に取得（#注目タグ用）
+        $hotTags = Tag::withCount('cordinates')
+        ->orderBy('cordinates_count','desc')->limit(6)->get();
+        
         // welcomeビューでそれらを表示
-        return view('welcome', compact('cordinates', 'hotCordinates', 'attentionUsers'));
+        return view('welcome', compact('cordinates', 'hotCordinates', 'attentionUsers', 'hotTags'));
     }
     
     public function feed()
@@ -35,15 +40,44 @@ class CordinatesController extends Controller
             $cordinates = $user->feed_cordinates()->withCount(['favorites_users','nice_users'])
             ->orderBy('created_at','desc')->get();
             
-            // 全ユーザのフォロワー降順に取得（#人気ユーザ用）
+            // 全ユーザのフォロワー降順に取得（人気ユーザ用）
             $attentionUsers = User::withCount('followers')
             ->orderBy('followers_count','desc')->paginate(4);
         
+            // 全タグの投稿との紐づけ降順に取得（#注目タグ用）
+            $hotTags = Tag::withCount('cordinates')
+            ->orderBy('cordinates_count','desc')->limit(6)->get();
+        
         // feedビューでそれらを表示
-        return view('feed', compact('user', 'cordinates', 'attentionUsers'));
+        return view('feed', compact('user', 'cordinates', 'attentionUsers','hotTags'));
         } else {
             return  view('login');
         }
+    }
+    
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        if (!empty($keyword))
+        {
+            $cordinates = Cordinate::where('text', 'like', '%' . $keyword . '%')
+            ->orWhereHas('tags', function ($query) use ($keyword){
+                $query->where('tag', 'like', '%' . $keyword . '%');
+            })
+            ->get();
+        } else {
+            return redirect('/');
+        }
+        
+        // 全ユーザのフォロワー降順に取得（#人気ユーザ用）
+        $attentionUsers = User::withCount('followers')
+        ->orderBy('followers_count','desc')->paginate(4);
+        
+        // 全タグの投稿との紐づけ降順に取得（#注目タグ用）
+        $hotTags = Tag::withCount('cordinates')
+        ->orderBy('cordinates_count','desc')->limit(6)->get();
+        
+        return view('search', compact('cordinates', 'attentionUsers', 'keyword', 'hotTags'));
     }
     
     public function show($id)
@@ -77,6 +111,23 @@ class CordinatesController extends Controller
             'image' => ['required', 'file', 'max:2048'],
             'text' => ['string', 'nullable'],
         ]);
+        
+        // #ハッシュタグ毎に$request->tagsの値が$match[1]に配列で挿入される。
+        $tags = [];
+        preg_match_all('/#([ぁ-んァ-ヶ一-龥々０-９ａ-ｚＡ-Ｚー・a-zA-Z0-9\-]+)/u', $request->tags, $match);
+        // $match[1]配列を$tagで展開
+        foreach ($match[1] as $tag) {
+            // すでに$tagタグがあれば取得し、なければ新規作成する。
+            $record = Tag::firstOrCreate(['tag' => $tag]);
+            // $recordを$tags配列に追加
+            array_push($tags, $record);
+        };
+        // 投稿に紐づけされるタグのidを配列で取得
+        $tags_id = [];
+        foreach ($tags as $tag) {
+            array_push($tags_id, $tag['id']);
+        };
+
         // 画像のアップロード
         $image = $request->file('image');
         $disk = Storage::disk('s3');
@@ -85,22 +136,35 @@ class CordinatesController extends Controller
         // 画像をバケットのcordinatesフォルダに保存する
         $path = $disk->putFileAs('cordinates', $image, $imageName, 'public');
         // 認証済みユーザ（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
-        $request->user()->cordinates()->create([
+        $post = $request->user()->cordinates()->create([
             'image' => $path,
             'text' => $request->text,
         ]);
+
+        // 投稿にタグを紐づけ
+        $post->tags()->attach($tags_id);
+        
         // 作成した画面に遷移する
-        return redirect()->route('cordinates.show', $id);
+        return redirect()->route('cordinates.show', $post->id);
     }
     
     public function edit($id)
     {
         // idの値でメッセージを検索して取得
         $cordinate = Cordinate::findOrFail($id);
-
+        
+        //前タグを参照し$beforeに配列で展開
+        $before = [];
+        foreach($cordinate->tags as $tag){
+            array_push($before, '#'.$tag->tag);
+        }
+        //配列を文字列に変換
+        $tags = implode($before);
+        
         // 編集ビューでそれを表示
         return view('cordinates.edit', [
             'cordinates' => $cordinate,
+            'tags' => $tags,
         ]);
     }
 
@@ -108,6 +172,29 @@ class CordinatesController extends Controller
     {
         // idの値でメッセージを検索して取得
         $cordinate = Cordinate::findOrFail($id);
+        
+        // #ハッシュタグ毎に$request->tagsの値が$match[1]に配列で挿入される。
+        preg_match_all('/#([ぁ-んァ-ヶ一-龥々０-９ａ-ｚＡ-Ｚー・a-zA-Z0-9\-]+)/u', $request->tags, $match);
+        
+        //前タグを参照し$beforeに配列で展開
+        $before = [];
+        foreach($cordinate->tags as $tag){
+            array_push($before, $tag->tag);
+        }
+        //新タグを登録
+        $after = [];
+        foreach($match[1] as $tag) {
+            $record = Tag::firstOrCreate(['tag' => $tag]);
+            array_push($after, $record);
+        }
+        $tags_id = [];
+        foreach($after as $tag) {
+            array_push($tags_id, $tag->id);
+        }
+        
+         
+        //投稿のタグをsyncメソッドで入れ替える
+        $cordinate->tags()->sync($tags_id);
         
         //アップデート時のバリデーション
         $request->validate([
@@ -137,7 +224,7 @@ class CordinatesController extends Controller
         
         $cordinate->text = $request->text;
         $cordinate->save();
-
+    
         // 詳細へリダイレクトさせる
         return redirect('cordinates/'.$cordinate->id);
     }

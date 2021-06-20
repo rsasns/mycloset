@@ -25,6 +25,14 @@ class Cordinate extends Model
     }
     
     /**
+     * この投稿が所有するタグ。（ Tagモデルとの関係を定義）
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class,'cordinates_tags');
+    }
+    
+    /**
      * この投稿をクリップしたユーザ。（ Userモデルとの関係を定義）
      */
     public function favorites_users()
