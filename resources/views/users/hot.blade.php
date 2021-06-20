@@ -37,4 +37,4 @@
     </div>
 @endforeach
 {{-- ページネーションのリンク --}}
-{{ $attentionUsers->links() }}
+{{ $attentionUsers->links('vendor.pagination.simple-default') }}

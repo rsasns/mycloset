@@ -1,3 +1,4 @@
+{{-- フォロー、フォロワー一覧　--}}
 @if (count($users) > 0)
     <div class="container">
     @foreach ($users as $user)

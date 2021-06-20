@@ -9,64 +9,56 @@ class CordinatesController extends Controller
 {
     public function index()
     {
-        // 全投稿を取得
-        $all = Cordinate::get();
-        
-        // 関係するモデルの件数を取得し、新着順に並び替え
+        // 全投稿のクリップ件といいね件数を取得し、新着順に並び替え（#NEW用）
         $cordinates = Cordinate::withCount(['favorites_users','nice_users'])
         ->orderBy('created_at','desc')->get();
         
-        // 関係するモデルの件数を取得し、いいね順に並び替え
+        // 全投稿のクリップ件数といいね件数を取得し、いいね降順に並び替え、上位３投稿まで取得（#HOT用）
         $hotCordinates = Cordinate::withCount(['favorites_users','nice_users'])
         ->orderBy('nice_users_count','desc')->limit(3)->get();
         
-        //ユーザ全数取得
-        $users = User::get();
-
-        // 関係するモデルの件数を取得
+        // 全ユーザのフォロワー降順に取得（#人気ユーザ用）
         $attentionUsers = User::withCount('followers')
         ->orderBy('followers_count','desc')->paginate(4);
         
         // welcomeビューでそれらを表示
-        return view('welcome', compact('all', 'cordinates', 'hotCordinates', 'users', 'attentionUsers'));
+        return view('welcome', compact('cordinates', 'hotCordinates', 'attentionUsers'));
     }
     
     public function feed()
     {
-        $data = [];
         if (\Auth::check()) {
-            // 全投稿を取得
-            $all = Cordinate::get();
+            // 認証済みユーザ（閲覧者）を取得
+            $user = \Auth::user();
             
-            // 関係するモデルの件数を取得し、新着順に並び替え
-            $cordinates = Cordinate::withCount(['favorites_users','nice_users'])
+            //ユーザとフォロー中の投稿の一覧を作成日時の降順で取得(タイムライン用)
+            $cordinates = $user->feed_cordinates()->withCount(['favorites_users','nice_users'])
             ->orderBy('created_at','desc')->get();
             
-            //ユーザ全数取得
-            $users = User::get();
-    
-            // 関係するモデルの件数を取得
+            // 全ユーザのフォロワー降順に取得（#人気ユーザ用）
             $attentionUsers = User::withCount('followers')
             ->orderBy('followers_count','desc')->paginate(4);
-            
-        // welcomeビューでそれらを表示
-        return view('feed', compact('all', 'cordinates','users', 'attentionUsers'));
+        
+        // feedビューでそれらを表示
+        return view('feed', compact('user', 'cordinates', 'attentionUsers'));
+        } else {
+            return  view('login');
         }
     }
     
     public function show($id)
     {
         // idの値で投稿を検索して取得
-        $cordinates = Cordinate::where('id',$id)->first();
-        if(empty($cordinates)) {
+        $cordinate = Cordinate::where('id', $id)->first();
+        if(empty($cordinate)) {
             return \App::abort(404);
         }
         
         // 関係するモデルの件数を取得
-        $favorites_users = $cordinates->loadCount(['favorites_users','nice_users']);
+        $action_users = $cordinate->loadCount(['comments','favorites_users','nice_users']);
         
         // 詳細ビューでそれを表示
-        return view('cordinates.show',  compact('cordinates', 'favorites_users',));
+        return view('cordinates.show',  compact('cordinate', 'action_users'));
     }
     
     public function create()
@@ -98,7 +90,7 @@ class CordinatesController extends Controller
             'text' => $request->text,
         ]);
         // 作成した画面に遷移する
-        return redirect('cordinates/'.$request->id);
+        return redirect()->route('cordinates.show', $id);
     }
     
     public function edit($id)

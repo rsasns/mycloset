@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->boolean('height_hidden')->default(0)->comment('0:公開、1:非公開');
             $table->unsignedinteger('age')->nullable();
             $table->boolean('age_hidden')->default(0)->comment('0:公開、1:非公開');
-            $table->boolean('sex')->nullable()->comment('0:男、1:女');
+            $table->boolean('sex')->nullable()->comment('1:男、2:女');
             $table->boolean('sex_hidden')->default(0)->comment('0:公開、1:非公開');
             $table->string('homepage')->nullable();
             $table->string('twitter')->nullable();

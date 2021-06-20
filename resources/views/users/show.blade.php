@@ -43,7 +43,7 @@
                         <span class="mr-1">{{ $user->height }}cm</span>
                     @endif
                     @if ($user->sex_hidden != 1 && $user->sex !== null)
-                        @if ($user->sex == 0 )
+                        @if ($user->sex == 1 )
                             <span class="mr-1">MEN</span>
                         @else
                             <span class="mr-1">WOMEN</span>

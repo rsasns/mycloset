@@ -6,8 +6,9 @@
         @include('commons.error_messages')
         <div class="row">
             <div class ="col-md-12">
+                <a class="link text-dark" href="{{ url()->previous() }}"><i class="fas fa-arrow-left mr-2"></i>編集せずに戻る</a>
                 {!! Form::model($cordinates, ['route' => ['cordinates.update', $cordinates->id], 'method' => 'put', 'enctype' => 'multipart/form-data']) !!}
-                <label class="upload-label btn btn-outline-dark rounded-pill">
+                <label class="upload-label btn btn-outline-dark rounded-pill mt-2">
                     画像を変更する
                     {!! Form::file('image',['accept' => '.png, .jpeg, .jpg, .gif','class' => 'file']) !!}
                     {{ csrf_field() }}
@@ -30,7 +31,6 @@
                 </div>
                 {!! Form::submit('変更する', ['class' => 'btn btn-block btn-outline-color rounded-pill']) !!}
             {!! Form::close() !!}
-            <a class="link text-dark" href="{{ url()->previous() }}"><i class="fas fa-arrow-left mr-2"></i>編集せずに戻る</a>
             </div>
         </div>  
     </div>

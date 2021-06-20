@@ -44,7 +44,7 @@
                 {!! Form::text('height', null, ['class' => 'form-control border border-dark']) !!}
             </div>
             <div class="col-md-7 form-check">
-                {!! Form::checkbox('height_hidden', 1, false, ['class' => 'form-check-input']) !!}
+                {!! Form::checkbox('height_hidden', 1, $user->height_hidden, ['class' => 'form-check-input']) !!}
                 {!! Form::label('height_hidden', '非公開にする', ['class' => 'form-check-label']) !!}
             </div>
         </div>
@@ -52,16 +52,16 @@
             {!! Form::label('sex', '性別', ['class' => 'offset-md-1 col-md-2 col-form-label']) !!}
             <div class="col-md-2">
                 <div class="form-check form-check-inline">
-                    {!! Form::radio('sex', 0, false, ['class' => 'form-check-input']) !!}
-                    {!! Form::label('sex', 'MEN') !!}
+                    {!! Form::radio('sex', 1, null, ['class' => 'form-check-input', 'id' => 'men']) !!}
+                    {!! Form::label('men', 'MEN') !!}
                 </div>
                 <div class="form-check form-check-inline">
-                    {!! Form::radio('sex', 1, false, ['class' => 'form-check-input']) !!}
-                    {!! Form::label('sex', 'WOMEN') !!}
+                    {!! Form::radio('sex', 2, null, ['class' => 'form-check-input', 'id' => 'women']) !!}
+                    {!! Form::label('women', 'WOMEN') !!}
                 </div>
             </div>
             <div class="col-md-7 form-check">
-                {!! Form::checkbox('sex_hidden', 1, false, ['class' => 'border border-dark form-check-input']) !!}
+                {!! Form::checkbox('sex_hidden', 1, $user->sex_hidden, ['class' => 'border border-dark form-check-input']) !!}
                 {!! Form::label('sex_hidden', '非公開にする', ['class' => 'form-check-label']) !!}
             </div>
         </div>
@@ -71,7 +71,7 @@
                 {!! Form::text('age', null, ['class' => 'form-control border border-dark']) !!}
             </div>
             <div class="col-md-7 form-check">
-                {!! Form::checkbox('age_hidden', 1, false, ['class' => 'form-check-input']) !!}
+                {!! Form::checkbox('age_hidden', 1, $user->age_hidden, ['class' => 'form-check-input']) !!}
                 {!! Form::label('age_hidden', '非公開にする', ['class' => 'form-check-label']) !!}
             </div>
         </div>

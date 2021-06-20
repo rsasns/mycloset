@@ -55,11 +55,6 @@ span {
     background-color: #f15922 !important;
 }
 
-/*フォーム*/
-.form-control {
-    border: none !important;
-}
-
 /*ログイン画面*/
 .upload-label input {
   display: none;
@@ -150,4 +145,8 @@ span {
 
 .nav-link.active {
     background-color: #6c757d !important;
+}
+
+.form-control {
+    border: none !important;
 }

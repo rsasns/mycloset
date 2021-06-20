@@ -26,8 +26,14 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 // ログイン時の処理
 Route::group(['middleware' => ['auth']], function () {
+    // ユーザ編集機能
     Route::resource('users', 'UsersController', ['only' => ['edit', 'update', 'destroy']]);
+    // 投稿機能
     Route::resource('cordinates', 'CordinatesController', ['only' => ['create', 'store', 'edit', 'update','destroy']]);
+    // コメント機能
+    Route::post('cordinates/{id}', 'CommentsController@store')->name('comments.store');
+    Route::delete('cordinates/{id}/comment', 'CommentsController@destroy')->name('comments.destroy');
+
     // フォロー機能、クリップ一覧表示の処理
     Route::group(['prefix' => 'users/{user_id}'], function () {
         Route::post('follow', 'UserFollowController@store')->name('user.follow');

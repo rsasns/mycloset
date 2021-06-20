@@ -78,11 +78,19 @@ class User extends Authenticatable
     }
     
     /**
+     * このユーザがコメントした投稿。（ Commentモデルとの関係を定義）
+     */
+    public function comments()
+    {
+        return $this->hasmany(Comment::class);
+    }
+    
+    /**
      * このユーザに関係するモデルの件数をロードする。
      */
     public function loadRelationshipCounts()
     {
-        $this->loadCount(['cordinates', 'followings', 'followers', 'favorites', 'nice']);
+        $this->loadCount(['cordinates', 'followings', 'followers', 'favorites', 'nice', 'comments']);
     }
     
      /**
@@ -178,7 +186,7 @@ class User extends Authenticatable
     }
 
     /**
-     * $cordinateIdで指定された投稿をクリップする。
+     * $cordinateIdで指定された投稿のクリップを外す。
      *
      * @param  int  $userId
      * @return bool
@@ -231,9 +239,9 @@ class User extends Authenticatable
     }
 
     /**
-     * $cordinateIdで指定された投稿をいいね！する。
+     * $cordinateIdで指定された投稿のいいね！を外す。
      *
-     * @param  int  $userId
+     * @param  int  $cordinateId
      * @return bool
      */
     public function unnice($cordinateId)

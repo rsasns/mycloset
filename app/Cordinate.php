@@ -17,6 +17,14 @@ class Cordinate extends Model
     }
     
     /**
+     * この投稿が所有するコメント。（ Commentモデルとの関係を定義）
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    
+    /**
      * この投稿をクリップしたユーザ。（ Userモデルとの関係を定義）
      */
     public function favorites_users()
@@ -37,7 +45,7 @@ class Cordinate extends Model
      */
     public function loadRelationshipCounts()
     {
-        $this->loadCount(['favorites_users','nice_users']);
+        $this->loadCount(['comments','favorites_users','nice_users']);
     }
     
 }
