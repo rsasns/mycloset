@@ -4,8 +4,8 @@
     @include('commons.navbar')
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <img class="resize mb-2" src="https://mycloset-sakataran.s3-ap-northeast-1.amazonaws.com/{{ $cordinate->image }}">
+            <div class="col-md-5">
+                <img class="resize-show mb-2" src="https://mycloset-sakataran.s3-ap-northeast-1.amazonaws.com/{{ $cordinate->image }}">
                 <div class="row mb-2">
                     <div class="mb-2">
                         <div class="col-md-12">
@@ -15,7 +15,7 @@
                     </div>
             </div>
                 </div>
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <div class="row mb-2">
                     <div class="col-md-12">
                         <div class="d-flex  justify-content-between">

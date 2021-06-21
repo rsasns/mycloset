@@ -47,4 +47,11 @@
         </div>
         @endforeach
     </div>
+@else
+<div class="col-12">
+    <div class="alert alert-secondary text-center" role="alert">
+        <i class="far fa-sticky-note fa-5x"></i>
+        <h2>{{ $keyword }}を含む投稿はありません</h2>
+    </div>
+</div>
 @endif
