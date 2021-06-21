@@ -173,29 +173,6 @@ class CordinatesController extends Controller
         // idの値でメッセージを検索して取得
         $cordinate = Cordinate::findOrFail($id);
         
-        // #ハッシュタグ毎に$request->tagsの値が$match[1]に配列で挿入される。
-        preg_match_all('/#([ぁ-んァ-ヶ一-龥々０-９ａ-ｚＡ-Ｚー・a-zA-Z0-9\-]+)/u', $request->tags, $match);
-        
-        //前タグを参照し$beforeに配列で展開
-        $before = [];
-        foreach($cordinate->tags as $tag){
-            array_push($before, $tag->tag);
-        }
-        //新タグを登録
-        $after = [];
-        foreach($match[1] as $tag) {
-            $record = Tag::firstOrCreate(['tag' => $tag]);
-            array_push($after, $record);
-        }
-        $tags_id = [];
-        foreach($after as $tag) {
-            array_push($tags_id, $tag->id);
-        }
-        
-         
-        //投稿のタグをsyncメソッドで入れ替える
-        $cordinate->tags()->sync($tags_id);
-        
         //アップデート時のバリデーション
         $request->validate([
             'image' => ['file', 'nullable'],
@@ -229,6 +206,43 @@ class CordinatesController extends Controller
         return redirect('cordinates/'.$cordinate->id);
     }
     
+    public function addtags(Request $request,$id)
+    {
+        // idの値でメッセージを検索して取得
+        $cordinate = Cordinate::findOrFail($id);
+        
+        // #ハッシュタグ毎に$request->tagsの値が$match[1]に配列で挿入される。
+        preg_match_all('/#([ぁ-んァ-ヶ一-龥々０-９ａ-ｚＡ-Ｚー・a-zA-Z0-9\-]+)/u', $request->tags, $match);
+        
+        //新タグを登録
+        $after = [];
+        foreach($match[1] as $tag) {
+            $record = Tag::firstOrCreate(['tag' => $tag]);
+            array_push($after, $record);
+        }
+        $tags_id = [];
+        foreach($after as $tag) {
+            array_push($tags_id, $tag->id);
+        }
+        
+        //投稿のタグを追加する
+        $cordinate->tags()->attach($tags_id);
+        
+        return redirect()->route('cordinates.edit', $cordinate->id);
+    }
+    
+    public function deletetags($id,$tag)
+    {
+        // idの値でメッセージを検索して取得
+        $cordinate = Cordinate::findOrFail($id);
+        
+        $tag_name = Tag::where('tag',$tag)->first(); 
+        $tag_id = $tag_name->id;
+        
+        $cordinate->tags()->detach($tag_id);
+        
+        return redirect()->route('cordinates.edit', $cordinate->id);
+    }
     public function destroy($id)
     {
         //idの値で投稿を検索して取得
