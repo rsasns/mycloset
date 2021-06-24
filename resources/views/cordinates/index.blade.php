@@ -95,7 +95,13 @@
     </div>
     <h1 class="d-block mb-0">#<span class="logo ml-2">NEW</span></h1>
     @endif
-    <div class="d-flex row">
+    <section class="scroll_area"
+      data-infinite-scroll='{
+        "path": ".pagination a[rel=next]",
+        "append": ".post"
+      }'
+    >
+    <div class="d-flex row post">
         @foreach ($cordinates as $cordinate)
         <div class="col-md-4 p-2 text-wrap">
             <div class="card">
@@ -133,14 +139,20 @@
                 <a class="link" href="{{ route('cordinates.show', $cordinate->id) }}">
                     <img class="card-img resize" src="https://mycloset-sakataran.s3-ap-northeast-1.amazonaws.com/{{ $cordinate->image }}">
                 </a>
-            <div class="card-footer p-1">
-                {{-- いいねボタンの表示 --}}
-                @include('commons.nice_button')
-                {{-- クリップボタンの表示 --}}
-                @include('commons.clip_button')
-            </div>
+                <div class="card-footer p-1">
+                    {{-- いいねボタンの表示 --}}
+                    @include('commons.nice_button')
+                    {{-- クリップボタンの表示 --}}
+                    @include('commons.clip_button')
+                </div>
             </div>
         </div>
         @endforeach
     </div>
+    </section>
+    <div class="hidden">
+    {{ $cordinates->links() }}
+    </div>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
+    <div id="page_top"><a href="#"></a></div>
 @endif

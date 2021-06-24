@@ -29,29 +29,14 @@
                         {!! Form::textarea('text', $cordinates->text, ['class' => 'form-control border border-dark', 'rows' => '3', 'form' => 'edit-cordinate']) !!}
                     </div>
                     
-                    <div class="form-group mb-2">
-                        {!! Form::label('tags', 'タグ', ['class' => 'col-form-label']) !!}
-                        <div class="form-inline">
-                        {!! Form::text('tags','', ['class' => 'form-control border border-dark mr-3', 'form' => 'addtags','placeholder' => '#tag#tag#tag']) !!}
-                        {!! Form::open(['id' => 'addtags','route' => ['cordinates.addtags', $cordinates->id], 'method' => 'put', 'autocomplete'=> 'off']) !!}
-                            {!! Form::submit('追加', ['class' => 'btn btn-outline-dark rounded-pill']) !!}
-                        {!! Form::close() !!}
-                        </div>
-                    </div>
-                    
                     <div class="form-group">
-                        <div class="form-inline">
-                        @foreach( $cordinates->tags as $tag )
-                        {!! Form::open(['id' => 'deletetags','route' => ['cordinates.deletetags', ['id' => $cordinates->id, 'tag' => $tag->tag]], 'method' => 'delete']) !!}
-                            {!! Form::submit('#'.$tag->tag, ['class' => 'btn btn-outline-secondary btn-sm']) !!}
-                        {!! Form::close() !!}
-                        @endforeach
-                        </div>
+                    {!! Form::label('tags', 'タグ', ['class' => 'col-form-label']) !!}
+                    {!! Form::text('tags', $tags, ['class' => 'form-control border border-dark', 'form' => 'edit-cordinate']) !!}
                     </div>
-                
                 </div>
+                <a class="btn btn-block btn-outline-dark rounded-pill mb-2" href="{{ route('items.create', $cordinates->id) }}">続けて着用アイテムを編集する</a>
             {!! Form::model($cordinates, ['id' => 'edit-cordinate','route' => ['cordinates.update', $cordinates->id], 'method' => 'put', 'enctype' => 'multipart/form-data', 'autocomplete'=> 'off']) !!}
-                {!! Form::submit('変更する', ['class' => 'btn btn-block btn-outline-color rounded-pill']) !!}
+                {!! Form::submit('変更を完了する', ['class' => 'btn btn-block btn-outline-color rounded-pill']) !!}
             {!! Form::close() !!}
             </div>
         </div>  

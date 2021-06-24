@@ -8,7 +8,13 @@
                 @include('commons.menubar')
             </div>
             <div class="col-md-9 mt-2">
-                <p class="lead">{{ $keyword }}の検索結果</p>
+                <p class="lead">
+                    @if(!empty($keyword))
+                    {{ $keyword }}
+                    @else(!empty($brandName))
+                    {{ $brandName }}
+                    @endif
+                    の検索結果</p>
                 {{-- 投稿一覧 --}}
                 @include('cordinates.search')
             </div>
@@ -22,4 +28,6 @@
             </div>
         </div>
     </div>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
+    <div id="page_top"><a href="#"></a></div>
 @endsection

@@ -34,9 +34,9 @@ Route::group(['middleware' => ['auth']], function () {
     // コメント機能
     Route::post('cordinates/{id}', 'CommentsController@store')->name('comments.store');
     Route::delete('cordinates/{id}/comment', 'CommentsController@destroy')->name('comments.destroy');
-    // タグ機能
-    Route::put('cordinates/{id}/addtags', 'CordinatesController@addtags')->name('cordinates.addtags');
-    Route::delete('cordinates/{id}/{tag}/deletetags', 'CordinatesController@deletetags')->name('cordinates.deletetags');
+    // アイテム機能
+    Route::resource('cordinates/{id}/items', 'ItemsController', ['only' => ['create','store', 'destroy']]);
+    Route::post('/fetch/category', 'ItemsController@fetch')->name('items.fetch');
     
     // フォロー機能、クリップ一覧表示の処理
     Route::group(['prefix' => 'users/{user_id}'], function () {

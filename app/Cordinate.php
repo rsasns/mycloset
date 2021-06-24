@@ -33,6 +33,14 @@ class Cordinate extends Model
     }
     
     /**
+     * このユーザが所有するアイテム。（ Itemモデルとの関係を定義）
+     */
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+    
+    /**
      * この投稿をクリップしたユーザ。（ Userモデルとの関係を定義）
      */
     public function favorites_users()

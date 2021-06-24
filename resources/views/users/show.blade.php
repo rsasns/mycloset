@@ -95,6 +95,12 @@
             </ul>
         </div>
         @if (count($cordinates) > 0)
+        <section class="scroll_area"
+          data-infinite-scroll='{
+            "path": ".pagination a[rel=next]",
+            "append": ".post"
+          }'
+        >
             <div class="row d-flex text-center">
             @foreach ($cordinates as $cordinate)
                 <div class="col-4 p-2">
@@ -103,6 +109,10 @@
                     </a>
                 </div>
             @endforeach
+            </div>
+            </section>
+            <div class="hidden">
+            {{ $cordinates->links() }}
             </div>
         @else
             <div class="row mt-2">
@@ -115,4 +125,6 @@
             </div>
         @endif
     </div>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
+    <div id="page_top"><a href="#"></a></div>
 @endsection

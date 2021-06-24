@@ -76,15 +76,26 @@
                             </div>
                         </div>
                     </div>    
-                <div class="row bg-light">
+                <div class="row">
                     <div class="col-md-12">
-                        <h6>着用アイテム</h6>
-                    </div>
-                    <div class="col-md-12">
-                        <span>大カテゴリ　＞　中カテゴリ　＞　小カテゴリ</span>
-                        <p></p>
-                        <span>ブランド名</span><span>サイズ</span>
-                        <p></p>
+                        <div class="alert alert-dark bg-light border-0" role="alert">
+                          <h6 class="alert-heading">着用アイテム</h6>
+                          @if(count($items)>0)
+                              @foreach($items as $item)
+                              ・{{ $item->category_id }}＞{{ $item->subcategory_id }}<br>
+                              <span><span class="badge badge-secondary mr-2 ml-3">サイズ</span>{{ $item->size_id }}</span>
+                              <form class="form-inline" action="{{ url('/search')}}" method="post">
+                                {{ csrf_field()}}
+                                {{method_field('get')}}
+                                <label class="badge badge-secondary mr-2 ml-3">ブランド</label>
+                                <input type="submit" class="btn btn-link link p-0 text-dark" name="brand" value="{{ $item->brand_id }}">
+                                </form>
+                                <p></p>
+                              @endforeach
+                              @else
+                              <p>登録しているアイテムはありません</p>
+                          @endif
+                        </div>
                     </div>
                 </div>
             </div>

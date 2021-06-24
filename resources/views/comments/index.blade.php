@@ -42,7 +42,7 @@
         @include('commons.error_messages')
         @if (Auth::check())
         <hr>
-        {!! Form::open(['url' => route('comments.store',$cordinate->id)]) !!}
+        {!! Form::open(['route' => ['comments.store',$cordinate->id]]) !!}
             <div class="form-group">
                 {!! Form::textarea('comment', null, ['class' => 'form-control', 'rows' => '2']) !!}
                 {!! Form::submit('コメントを投稿する', ['class' => 'btn btn-outline-dark btn-block rounded-pill']) !!}
