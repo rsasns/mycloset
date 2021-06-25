@@ -38,24 +38,23 @@ class ItemsController extends Controller
     {
         //アップデート時のバリデーション
         $request->validate([
-            'cordinate_id' => ['required'],
             'category_id' => ['required'],
-            'subcategory_id' => ['required'],
+            'sub_category_id' => ['required'],
             'size_id' => ['required'],
             'brand_id' => ['required'],
         ]);
-         
+        
         // idの値で投稿を検索して取得
         $cordinate = Cordinate::findOrFail($id);
         
-        $brandname = $request->brand;
+        $brandname = $request->brand_id;
         // すでに$brandnameがあれば取得し、なければ新規作成する。
         $record = Brand::firstOrCreate(['brand' => $brandname]);
         
         $item = $cordinate->items()->create([
             'cordinate_id' => $cordinate->id,
             'category_id' => $request->category_id,
-            'subcategory_id' => 1,
+            'subcategory_id' => $request->sub_category_id,
             'size_id' => $request->size_id,
             'brand_id'=> $record->id,
         ]);

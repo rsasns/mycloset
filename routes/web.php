@@ -55,6 +55,20 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
+// 管理者機能
+Route::group(['middleware' => ['auth.admin']], function () {
+	Route::get('/admin', 'admin\AdminTopController@show');
+	Route::post('/admin/logout', 'admin\AdminLogoutController@logout');
+	Route::get('/admin/user_list', 'admin\ManageUserController@showUserList');
+	Route::get('/admin/user/{id}', 'admin\ManageUserController@showUserDetail');
+	Route::get('/admin/cordinate_list', 'admin\ManageUserController@showCordinateList');
+	Route::get('/admin/cordinate/{id}', 'admin\ManageUserController@showCordinateDetail');
+	Route::delete('/admin/cordinate/{id}', 'admin\ManageUserController@cordinateDestroy')->name('admin.cordinateDestroy');
+	Route::resource('admin', 'admin\ManageUserController')->only(['destroy']);
+});
+
 // 制限なしの処理
 Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
 Route::resource('cordinates', 'CordinatesController', ['only' => ['index', 'show']]);
+Route::get('/admin/login', 'admin\AdminLoginController@showLoginform');
+Route::post('/admin/login', 'admin\AdminLoginController@login');

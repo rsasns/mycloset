@@ -22,8 +22,8 @@
             <div class="form-inline">
             {!! Form::label('size_id', 'サイズ', ['class' => 'col-form-label mr-4']) !!}
             {!! Form::select('size_id',$sizeList, null,  ['form' => 'item', 'class' => 'form-control border border-dark mr-3', 'placeholder' => '選択してください']) !!}
-            {!! Form::label('brand', 'ブランド', ['class' => 'col-form-label mr-2']) !!}
-            {!! Form::text('brand', null,  ['form' => 'item', 'class' => 'form-control border border-dark mr-3', 'placeholder' => 'ブランドを入力']) !!}
+            {!! Form::label('brand_id', 'ブランド', ['class' => 'col-form-label mr-2']) !!}
+            {!! Form::text('brand_id', 'ブランドなし',  ['form' => 'item', 'class' => 'form-control border border-dark mr-3', 'placeholder' => 'ブランドを入力']) !!}
             {!! Form::submit('追加する', ['class' => 'btn btn-outline-dark rounded-pill']) !!}
         {!! Form::close() !!}
             </div>
@@ -83,7 +83,7 @@
               $('#children option').remove();
               // DBから受け取ったデータを子カテゴリのoptionにセット
               $.each(data, function(key, value) {
-                $('#children').append($('<option>').text(value.subcategory).attr('value', key));
+                $('#children').append($('<option>').text(value.subcategory).val(value.id));
               })
             })
             .fail(function() {

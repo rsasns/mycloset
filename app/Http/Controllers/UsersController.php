@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+// 以下追加
 use App\User;
-
-use \Storage; // 追加
-
-use \InterventionImage; // 追加
+use App\Cordinate;
+use \Storage; 
+use \InterventionImage;
 
 class UsersController extends Controller
 {
@@ -140,29 +139,22 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         
         // ユーザの投稿を検索して取得
-        $userMicroposts = \App\Micropost::where('user_id',$id)->get();
-        if($userMicroposts !== null ){
+        $userPosts = \App\Cordinate::where('user_id',$id)->get();
+        if($userPosts !== null ){
             //ユーザの投稿を展開
-            foreach($userMicroposts as $userMicropost) {
-                $userMicropostId = $userMicropost->id;
-                //ユーザの投稿に付随する画像を検索して取得
-                $userMicrpostImages = \App\MicropostImages::where('micropost_id',$userMicropostId)->get();
-                if($userMicrpostImages !== null ){
-                    //ユーザの投稿に付随する画像を展開
-                    foreach($userMicrpostImages as $userMicrpostImage) {
-                        //配列から画像名を取得して削除
-                        $userMicrpostImageName = $userMicrpostImage->image_name;
-                        Storage::disk('s3')->delete('micropost/'.$userMicrpostImageName);
-                    }
-                }
+            foreach($userPosts as $userPost) {
+                //ユーザの投稿の画像をS3から削除
+                $userPostImage = $userPost->image;
+                Storage::disk('s3')->delete($userPostImage);
             }
         }
         
         //プロフィール画像をidの値で検索して取得
         $userImage = User::where('id',$id)->value('image');
+        $userName = User::where('id',$id)->value('user_id');
         
         //プロフィール画像を削除
-        if($userName !== null) {
+        if($userImage !== null) {
             //配列からファイル名を取得してS3から削除
             Storage::disk('s3')->delete('profile/'.$userName);
         }
@@ -173,6 +165,7 @@ class UsersController extends Controller
         // トップページへリダイレクトさせる
         return redirect('/')->with('deleted_message', 'ユーザの削除が完了しました');
     }
+    
     /**
      * ユーザのフォロー一覧ページを表示するアクション。
      *

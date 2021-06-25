@@ -1,7 +1,7 @@
 <header class="mb-4">
     <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top ">
         {{-- トップページへのリンク --}}
-        <a class="logo navbar-brand" href="/">My closet</a>
+        <a class="logo navbar-brand" href="/"><i class="fas fa-hashtag color mr-2"></i>My closet</a>
         {{-- 検索フォーム --}}
         <div class="none">
             <form class="form-inline" action="{{ url('/search')}}" method="post">

@@ -12,7 +12,7 @@
                     @if(!empty($keyword))
                     {{ $keyword }}
                     @else(!empty($brandName))
-                    {{ $brandName }}
+                    ブランド：{{ $brandName }}
                     @endif
                     の検索結果</p>
                 {{-- 投稿一覧 --}}

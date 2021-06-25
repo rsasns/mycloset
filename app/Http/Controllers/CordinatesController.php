@@ -69,13 +69,15 @@ class CordinatesController extends Controller
         
         if (!empty($keyword))
         {
+            $brandName = '';
+            
             $cordinates = Cordinate::where('text', 'like', '%' . $keyword . '%')
             ->orWhereHas('tags', function ($query) use ($keyword){
                 $query->where('tag', 'like', '%' . $keyword . '%');
             })
             ->get();
         } 
-        if (!empty($brand))
+        elseif (!empty($brand))
         {
             $brands = Brand::where('brand', 'like', '%' . $brand . '%')->value('id');
             $brandName = Brand::where('brand', 'like', '%' . $brand . '%')->value('brand');
