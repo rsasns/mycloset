@@ -10,7 +10,8 @@
             @include('commons.error_messages')
         </div>
         <div class="row">
-            <div class="col-md-4 text-center">
+            <div class="col-md-4 text-center image-position">
+                <img id="preview" class="resize-circle preview-position">
                @if($user->image == null || $user->image == '')
                     <i class="fas fa-user-circle fa-9x"></i>
                 @else

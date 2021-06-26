@@ -76,7 +76,7 @@ Route::group(['middleware' => ['auth.admin']], function () {
 	Route::get('/admin/cordinate_list', 'admin\ManageUserController@showCordinateList');
 	Route::get('/admin/cordinate/{id}', 'admin\ManageUserController@showCordinateDetail');
 	Route::delete('/admin/cordinate/{id}', 'admin\ManageUserController@cordinateDestroy')->name('admin.cordinateDestroy');
-	Route::resource('admin', 'admin\ManageUserController')->only([ 'edit', 'update', 'destroy']);
+	Route::resource('admin', 'admin\ManageUserController')->only([ 'edit', 'update', 'destroy']); // user用
 });
 
 // 制限なしの処理

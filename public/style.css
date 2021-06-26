@@ -112,6 +112,15 @@ span {
 	border-radius:50%;
 }
 
+.image-position {
+    position: relative;
+}
+
+.preview-position {
+    position: absolute;
+    top: 0;
+    left: 30%;
+}
 /*コーディネート画像*/
 .resize {
     width: 250px;
