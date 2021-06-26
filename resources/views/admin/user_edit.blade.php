@@ -4,7 +4,7 @@
 <div class="container">
 	<div class="card">
 		<div class="card-header">
-			<a href="{{ url('admin/user_list') }}">ユーザー一覧</a> &gt; ユーザー詳細
+			<a href="{{ url('admin/user_list') }}">ユーザー一覧</a> &gt; <a href="{{ url('admin/user/'.$user->id) }}">ユーザー詳細</a>  &gt; ユーザー編集
 		</div>
 		<div class="card-body">
 			{!! Form::model($user, ['route' => ['admin.update', $user->id], 'method' => 'put']) !!}

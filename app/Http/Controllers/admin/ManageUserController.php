@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 // 以下追加
 use App\User;
 use App\Cordinate;
+use App\Brand;
 use \Storage;
 
 class ManageUserController extends Controller
@@ -39,24 +40,13 @@ class ManageUserController extends Controller
 		]);
 	}
 	
-	public function cordinateDestroy($id)
-    {
-        // idの値でコーディネートを検索して取得
-        $cordinate = Cordinate::findOrFail($id);
-        $cordinateImage = $cordinate->image;
-        
-        // 画像を削除
-        Storage::disk('s3')->delete($cordinateImage);
-        // コーディネートを削除
-        $cordinate->delete();
-        
-        $cordinate_list = Cordinate::orderBy("id", "desc")->paginate(10);
-        
-        return view("admin.cordinate_list", [
-			"cordinate_list" => $cordinate_list
+    function showBrandList(){
+		$brand_list = Brand::orderBy("id", "desc")->paginate(10);
+		return view("admin.brand_list", [
+			"brand_list" => $brand_list
 		]);
-    }
-    
+	}
+	
     public function edit($id)
     {
         // idの値でユーザを検索して取得
@@ -118,6 +108,24 @@ class ManageUserController extends Controller
         
         return view("admin.user_list", [
 			"user_list" => $user_list
+		]);
+    }
+	
+	public function cordinateDestroy($id)
+    {
+        // idの値でコーディネートを検索して取得
+        $cordinate = Cordinate::findOrFail($id);
+        $cordinateImage = $cordinate->image;
+        
+        // 画像を削除
+        Storage::disk('s3')->delete($cordinateImage);
+        // コーディネートを削除
+        $cordinate->delete();
+        
+        $cordinate_list = Cordinate::orderBy("id", "desc")->paginate(10);
+        
+        return view("admin.cordinate_list", [
+			"cordinate_list" => $cordinate_list
 		]);
     }
 }

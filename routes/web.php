@@ -70,12 +70,13 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['middleware' => ['auth.admin']], function () {
 	Route::get('/admin', 'admin\AdminTopController@show');
 	Route::post('/admin/logout', 'admin\AdminLogoutController@logout');
+	Route::get('/admin/brand_list', 'admin\ManageUserController@showBrandList');
 	Route::get('/admin/user_list', 'admin\ManageUserController@showUserList');
 	Route::get('/admin/user/{id}', 'admin\ManageUserController@showUserDetail');
 	Route::get('/admin/cordinate_list', 'admin\ManageUserController@showCordinateList');
 	Route::get('/admin/cordinate/{id}', 'admin\ManageUserController@showCordinateDetail');
 	Route::delete('/admin/cordinate/{id}', 'admin\ManageUserController@cordinateDestroy')->name('admin.cordinateDestroy');
-	Route::resource('admin', 'admin\ManageUserController')->only([ 'edit', 'update','destroy']);
+	Route::resource('admin', 'admin\ManageUserController')->only([ 'edit', 'update', 'destroy']);
 });
 
 // 制限なしの処理
