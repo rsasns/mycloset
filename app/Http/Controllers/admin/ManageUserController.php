@@ -57,6 +57,34 @@ class ManageUserController extends Controller
 		]);
     }
     
+    public function edit($id)
+    {
+        // idの値でユーザを検索して取得
+        $user = User::findOrFail($id);
+        if(empty($user)) {
+            return \App::abort(404);
+        }
+        
+        return view('admin.user_edit', [
+            'user' => $user,
+        ]);
+    }
+    
+    public function update(Request $request, $id)
+    {
+        // idの値でユーザを検索して取得
+        $user = User::findOrFail($id);
+        
+        $user->user_id = $request->user_id;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->bio = $request->bio;
+        $user->save();
+
+        // 詳細へ戻る
+        return redirect('admin/user/'.$user->id);
+    }
+
     public function destroy($id)
     {
         // idの値でユーザを検索して取得
