@@ -15,7 +15,6 @@ Route::get('/', 'CordinatesController@index')->name('index');
 Route::get('/feed', 'CordinatesController@feed')->name('feed');
 Route::get('/search', 'CordinatesController@search')->name('search');
 
-
 // ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
@@ -24,6 +23,12 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
+// ゲストユーザーログイン
+Route::get('guest', 'Auth\LoginController@guestLogin')->name('login.guest');
+
+// SNS認証
+Route::get('/login/{provider}', 'Auth\LoginController@redirectToProvider')->where('social', 'facebook|twitter');
+Route::get('/login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->where('social', 'facebook|twitter');
 
 // ログイン時の処理
 Route::group(['middleware' => ['auth']], function () {
@@ -68,7 +73,7 @@ Route::group(['middleware' => ['auth.admin']], function () {
 });
 
 // 制限なしの処理
-Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
+Route::resource('users', 'UsersController', ['only' => ['show']]);
 Route::resource('cordinates', 'CordinatesController', ['only' => ['index', 'show']]);
 Route::get('/admin/login', 'admin\AdminLoginController@showLoginform');
 Route::post('/admin/login', 'admin\AdminLoginController@login');

@@ -36,7 +36,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    
+    /**
+     * SNS認証用
+     */
+    function IdentityProviders()
+    {
+        return $this->hasMany(IdentityProvider::class);
+    }
+    
     /**
      * このユーザが所有する投稿。（ Cordinateモデルとの関係を定義）
      */

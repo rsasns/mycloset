@@ -32,10 +32,13 @@
                     </form>
                 </li>
                 </div>
+                @if(Auth::check())
                 {{-- マイページへのリンク --}}
                 <li class="nav-item p-2">{!! link_to_route('users.show', 'マイページ', ['user' => Auth::user()->user_id ], ['class' => 'link text-dark']) !!}</li>
                 {{-- ログアウト --}}
                 <li class="nav-item p-2">{!! link_to_route('logout.get', 'ログアウト',[], ['class' => 'link text-dark']) !!}</li>
+                @else
+                @endif
             </ul>
         </div>
     </nav>

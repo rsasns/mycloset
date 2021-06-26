@@ -3,7 +3,12 @@
 @section('content')
     @include('commons.navbar')
     <div class="container">
+        <div class="row">
+        @if (Auth::id() == 1)
+          <p class="text-danger font-weight-bold">※ゲストユーザはプロフィール画像とニックネームを編集できません。</p>
+        @endif
             @include('commons.error_messages')
+        </div>
         <div class="row">
             <div class="col-md-4 text-center">
                @if($user->image == null || $user->image == '')
@@ -15,6 +20,11 @@
             <div class="col-md-8">
                 <h3>{{ $user->user_id }}</h3>
                 <p></p>
+                @if (Auth::id() == 1)
+                    <label class="upload-label btn btn-outline-dark rounded-pill">
+                        プロフィール画像を変更する
+                    </label>
+                @else
                 {!! Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'put',  'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
                         <label class="upload-label btn btn-outline-dark rounded-pill">
@@ -23,15 +33,26 @@
                             {{ csrf_field() }}
                         </label>
                     </div>
+                @endif
             </div>
         </div>
         <p></p>
+        @if (Auth::id() == 1)
+        {!! Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'put',  'enctype' => 'multipart/form-data']) !!}
+        <div class="form-group row">
+            {!! Form::label('name', 'ニックネーム', ['class' => 'offset-md-1 col-md-2 col-form-label']) !!}
+            <div class="col-md-4">
+                {!! Form::text('name', null, ['class' => 'form-control border border-dark','readonly']) !!}
+            </div>
+        </div>
+        @else
         <div class="form-group row">
             {!! Form::label('name', 'ニックネーム', ['class' => 'offset-md-1 col-md-2 col-form-label']) !!}
             <div class="col-md-4">
                 {!! Form::text('name', null, ['class' => 'form-control border border-dark']) !!}
             </div>
         </div>
+        @endif
         <div class="form-group row">
             {!! Form::label('bio', '自己紹介', ['class' => 'offset-md-1 col-md-2 col-form-label']) !!}
             <div class="col-md-6">

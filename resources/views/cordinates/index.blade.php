@@ -155,4 +155,15 @@
     </div>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
     <div id="page_top"><a href="#"></a></div>
+    @else
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="alert alert-secondary text-center" role="alert">
+                <i class="far fa-sticky-note fa-5x"></i>
+                <h2>投稿がありません</h2>
+                <span>タイムラインではあなたの投稿とフォローしているユーザの投稿のみを表示することができます。<br>
+                コーディネートを投稿したり、気に入ったユーザをフォローしたり、あなただけのタイムラインを作りましょう！</span>
+            </div>
+        </div>
+    </div>
 @endif

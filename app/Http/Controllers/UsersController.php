@@ -11,11 +11,9 @@ use \InterventionImage;
 
 class UsersController extends Controller
 {
-    public function index()
-    {
-        //
-    }
-
+    // ゲストユーザの設定
+    private const GUEST_USER_ID = 1;
+    
     public function show($id)
     {
         // user_idの値でユーザを検索して取得
@@ -59,43 +57,60 @@ class UsersController extends Controller
     {
         // idの値でユーザを検索して取得
         $user = User::findOrFail($id);
-
+        
         //アップデート時のバリデーション
-        $request->validate([
-            'name' => ['required','string', 'max:100'],
-            'bio' => ['string', 'max:200', 'nullable'],
-            'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048', 'nullable'],
-            'height' => ['integer', 'digits:3'],
-            'height_hidden' => ['boolean'],
-            'age' => ['integer', 'digits_between:0,100'],
-            'age_hidden' => ['boolean'],
-            'sex' => ['string'],
-            'sex_hidden' => ['boolean'],
-            'homepage' => ['string', 'nullable'],
-            'instagram' => ['string', 'nullable'],
-            'twitter' => ['string', 'nullable'],
-            'facebook' => ['string', 'nullable'],
-         ]);
-        
-        // プロフィール画像のアップロード
-        $image = $user->image;
-        
-        if(!is_null($request->file('image'))) {
+        // ゲストユーザーログイン時は、ニックネームとプロフィール画像をバリデーションにかけない
+        if(\Auth::id() == self::GUEST_USER_ID) {
+            $request->validate([
+                'bio' => ['string', 'max:200', 'nullable'],
+                'height' => ['integer', 'digits:3'],
+                'height_hidden' => ['boolean'],
+                'age' => ['integer', 'digits_between:0,100'],
+                'age_hidden' => ['boolean'],
+                'sex' => ['string'],
+                'sex_hidden' => ['boolean'],
+                'homepage' => ['string', 'nullable'],
+                'instagram' => ['string', 'nullable'],
+                'twitter' => ['string', 'nullable'],
+                'facebook' => ['string', 'nullable'],
+            ]);
+        // ゲストユーザー以外がログインしている時は、全てのユーザー情報をバリデーションにかける
+        } else { 
+            $request->validate([
+                'name' => ['required','string', 'max:100'],
+                'bio' => ['string', 'max:200', 'nullable'],
+                'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048', 'nullable'],
+                'height' => ['integer', 'digits:3'],
+                'height_hidden' => ['boolean'],
+                'age' => ['integer', 'digits_between:0,100'],
+                'age_hidden' => ['boolean'],
+                'sex' => ['string'],
+                'sex_hidden' => ['boolean'],
+                'homepage' => ['string', 'nullable'],
+                'instagram' => ['string', 'nullable'],
+                'twitter' => ['string', 'nullable'],
+                'facebook' => ['string', 'nullable'],
+             ]);
+            // プロフィール画像のアップロード
+            $image = $user->image;
             
-            $image = $request->file('image');
-            $disk = Storage::disk('s3');
-
-            // 画像の名前をユーザ名＋元ファイル拡張子にする
-            $imageName = $user->user_id.'.'.$image->getClientOriginalExtension();
-            // 画像をバケットのprofileフォルダに保存する
-            $path = $disk->putFileAs('profile', $image, $imageName, 'public');
-
-            $user->image = $path;
-            $user->save();
+            if(!is_null($request->file('image'))) {
+                
+                $image = $request->file('image');
+                $disk = Storage::disk('s3');
+    
+                // 画像の名前をユーザ名＋元ファイル拡張子にする
+                $imageName = $user->user_id.'.'.$image->getClientOriginalExtension();
+                // 画像をバケットのprofileフォルダに保存する
+                $path = $disk->putFileAs('profile', $image, $imageName, 'public');
+    
+                $user->image = $path;
+                $user->save();
+            }
+            $user->name = $request->name;
         }
 
         // ユーザを更新
-        $user->name = $request->name;
         $user->bio = $request->bio;
         
         $user->height = $request->height;

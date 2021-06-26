@@ -58,7 +58,7 @@ class CordinatesController extends Controller
         // feedビューでそれらを表示
         return view('feed', compact('user', 'cordinates', 'attentionUsers','hotTags'));
         } else {
-            return  view('login');
+            return redirect('/');
         }
     }
     

@@ -163,6 +163,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         // 追加　Intervention image
         Intervention\Image\ImageServiceProvider::class,
+        // 追加　
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -229,6 +231,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        // 追加　Socialite
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

@@ -20,21 +20,20 @@
                 </div>
                 {!! Form::submit('新規登録', ['class' => 'btn btn-dark btn-block rounded-pill']) !!}
             {!! Form::close() !!}
-            <div class="social-login">
-                <span>または</span>
-                <div class="row mt-2">
-                    <div class = "col-4">
-                        <i class="fab fa-facebook fa-2x"></i>
-                    </div>
-                    <div class = "col-4">
-                        <i class="fab fa-twitter-square fa-2x"></i>
-                    </div>
-                    <div class = "col-4">
-                        <i class="fab fa-line fa-2x"></i>
-                    </div>
-                </div>
-            </div>
+            <!--<div class="social-login">-->
+            <!--    <span>または</span>-->
+            <!--    <div class="row mt-2">-->
+            <!--        <div class = "col-6">-->
+            <!--            <i class="fab fa-facebook fa-2x"></i>-->
+            <!--        </div>-->
+            <!--        <div class = "col-6">-->
+            <!--            <i class="fab fa-twitter-square fa-2x"></i>-->
+            <!--        </div>-->
+            <!--    </div>-->
+            <!--</div>-->
+            <div class="mt-2">
             <span>すでにアカウントをお持ちですか？</span><span><a class="color link font-weight-bold" href="/">ログインする</a></span>
+            </div>
         </div>
     </div>
 </div>
