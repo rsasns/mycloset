@@ -44,9 +44,9 @@
                     @endif
                     @if ($user->sex_hidden != 1 && $user->sex !== null)
                         @if ($user->sex == 1 )
-                            <span class="mr-1">MEN</span>
-                        @else
                             <span class="mr-1">WOMEN</span>
+                        @else
+                            <span class="mr-1">MEN</span>
                         @endif
                     @endif
                     @if ($user->age_hidden != 1 && $user->age !== null)

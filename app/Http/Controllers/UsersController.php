@@ -127,10 +127,10 @@ class UsersController extends Controller
             $user->age_hidden = 0;
         }
         
-        if($request->sex == 1){
-            $user->sex = 1;
-        }elseif($request->sex == 2){
-            $user->sex = 2;   
+        if($request->sex == 0){
+            $user->sex = 0;
+        }elseif($request->sex == 1){
+            $user->sex = 1;   
         }
         if($request->sex_hidden !== null){
             $user->sex_hidden = 1;

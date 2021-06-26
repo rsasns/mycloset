@@ -73,11 +73,11 @@
             {!! Form::label('sex', '性別', ['class' => 'offset-md-1 col-md-2 col-form-label']) !!}
             <div class="col-md-2">
                 <div class="form-check form-check-inline">
-                    {!! Form::radio('sex', 1, null, ['class' => 'form-check-input', 'id' => 'men']) !!}
+                    {!! Form::radio('sex', 0, null, ['class' => 'form-check-input', 'id' => 'men']) !!}
                     {!! Form::label('men', 'MEN') !!}
                 </div>
                 <div class="form-check form-check-inline">
-                    {!! Form::radio('sex', 2, null, ['class' => 'form-check-input', 'id' => 'women']) !!}
+                    {!! Form::radio('sex', 1, null, ['class' => 'form-check-input', 'id' => 'women']) !!}
                     {!! Form::label('women', 'WOMEN') !!}
                 </div>
             </div>
