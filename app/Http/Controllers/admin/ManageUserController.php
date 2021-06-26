@@ -67,7 +67,6 @@ class ManageUserController extends Controller
         
         $user->user_id = $request->user_id;
         $user->name = $request->name;
-        $user->email = $request->email;
         $user->bio = $request->bio;
         $user->save();
 

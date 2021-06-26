@@ -1,4 +1,4 @@
-//最上部へスクロールするボタン
+//ファイル選択時のプレビュー
 $(function(){
   $("[name='image']").on('change', function (e) {
     
@@ -13,6 +13,7 @@ $(function(){
   });
 });
 
+//最上部へスクロールするボタン
 jQuery(function() {
     var pagetop = $('#page_top');   
     pagetop.hide();

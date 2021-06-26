@@ -11,7 +11,6 @@
 			<ul class="list-group">
 				<li class="list-group-item">ユーザID: {!! Form::text('user_id', null, ['class' => 'form-control']) !!}</li>
 				<li class="list-group-item">名前: {!! Form::text('name', null, ['class' => 'form-control']) !!}</li>
-				<li class="list-group-item">メール: {!! Form::text('mail', null, ['class' => 'form-control']) !!}</li>
 				<li class="list-group-item">紹介文: {!! Form::text('bio', null, ['class' => 'form-control']) !!}</li>
 				<li class="list-group-item">作成日: {{ $user->created_at->format('Y/m/d H:i:s') }}</li>
 				<li class="list-group-item">更新日: {{ $user->updated_at->format('Y/m/d H:i:s') }}</li>
