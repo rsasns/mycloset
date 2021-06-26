@@ -178,7 +178,7 @@ class UsersController extends Controller
         $user->delete();
         
         // トップページへリダイレクトさせる
-        return redirect('/')->with('deleted_message', 'ユーザの削除が完了しました');
+        return redirect('/')->with('deleted_message', 'アカウントの削除が完了しました');
     }
     
     /**
