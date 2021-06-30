@@ -28,6 +28,10 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 // ゲストユーザーログイン
 Route::get('guest', 'Auth\LoginController@guestLogin')->name('login.guest');
 
+// Facebookログイン
+Route::get('/login/{provider}', 'Auth\LoginController@redirectToProvider')->where('social', 'facebook');
+Route::get('/login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->where('social', 'facebook');
+
 // ログイン時の処理
 Route::group(['middleware' => ['verified']], function () {
     // ユーザ編集機能
