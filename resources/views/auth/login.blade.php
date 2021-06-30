@@ -29,7 +29,9 @@
             <!--    </div>-->
             <!--</div>-->
             <div class="mt-2">
-                <span>アカウントをお持ちではありませんか？</span><span>{!! link_to_route('signup.get', '登録する', [],['class' => 'color link font-weight-bold']) !!}</span>
+                <a href="{{ route('password.request') }}" class="link text-dark">パスワードを忘れた場合<a>
+                <hr>
+                <span>アカウントをお持ちではありませんか？</span><span><a class="color link font-weight-bold" href="{{ route('signup.get') }}">登録する</a></span>
             </div>
             <div class="mt-4">
                 <span><a href="{{ route('login.guest') }}" class="link text-dark font-weight-bold"><i class="fas fa-user mr-3"></i>ゲストログイン<a></span>

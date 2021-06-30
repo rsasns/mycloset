@@ -24,6 +24,8 @@
                 @if (Auth::id() == 1)
                     <label class="upload-label btn btn-outline-dark rounded-pill">
                         プロフィール画像を変更する
+                        {!! Form::file('image',['accept' => '.png, .jpeg, .jpg, .gif','class' => 'file']) !!}
+                        {{ csrf_field() }}
                     </label>
                 @else
                 {!! Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'put',  'enctype' => 'multipart/form-data']) !!}

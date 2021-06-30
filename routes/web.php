@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes(['verify' => true]);
 
 Route::get('/', 'CordinatesController@index')->name('index');
 Route::get('/feed', 'CordinatesController@feed')->name('feed');
@@ -24,20 +25,11 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
-// パスワードリセット
-Route::get('/forgot-password', function () {
-    return view('auth.forgot-password');
-})->middleware('guest')->name('password.request');
-
 // ゲストユーザーログイン
 Route::get('guest', 'Auth\LoginController@guestLogin')->name('login.guest');
 
-// SNS認証
-Route::get('/login/{provider}', 'Auth\LoginController@redirectToProvider')->where('social', 'facebook|twitter');
-Route::get('/login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->where('social', 'facebook|twitter');
-
 // ログイン時の処理
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['verified']], function () {
     // ユーザ編集機能
     Route::resource('users', 'UsersController', ['only' => ['edit', 'update', 'destroy']]);
     // 投稿機能
@@ -84,3 +76,5 @@ Route::resource('users', 'UsersController', ['only' => ['show']]);
 Route::resource('cordinates', 'CordinatesController', ['only' => ['index', 'show']]);
 Route::get('/admin/login', 'admin\AdminLoginController@showLoginform');
 Route::post('/admin/login', 'admin\AdminLoginController@login');
+
+Route::get('/home', 'HomeController@index')->name('home');
