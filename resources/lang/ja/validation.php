@@ -82,6 +82,7 @@ return [
         'string'  => ':attributeには:size文字の文字列を指定してください。',
         'array'   => ':attributeには:size個の要素を持つ配列を指定してください。',
     ],
+    'starts_with'          => ':attributeは必ず:valuesから始めてください。',
     'string'               => ':attributeには文字列を指定してください。',
     'timezone'             => ':attributeには正しい形式のタイムゾーンを指定してください。',
     'unique'               => 'その:attributeはすでに使われています。',
@@ -125,6 +126,7 @@ return [
         'sub_category_id' => 'サブカテゴリ',
         'size_id' => 'サイズ',
         'brand_id' => 'ブランド',
+        'tags' => 'タグ',
     ],
 
 ];

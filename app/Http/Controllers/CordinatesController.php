@@ -141,6 +141,7 @@ class CordinatesController extends Controller
         $request->validate([
             'image' => ['required', 'file', 'max:2048'],
             'text' => ['string', 'nullable'],
+            'tags' => ['starts_with:#', 'nullable']
         ]);
         
         // 画像と本文の登録
