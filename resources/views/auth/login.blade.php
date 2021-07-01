@@ -33,7 +33,7 @@
                 <span>アカウントをお持ちではありませんか？</span><span><a class="color link font-weight-bold" href="{{ route('signup.get') }}">登録する</a></span>
             </div>
         </div>
-        <div class="mt-4 text-center">
+        <div class="mt-4 mb-4 text-center">
                 <span><a href="{{ route('login.guest') }}" class="link text-dark font-weight-bold"><i class="fas fa-user mr-3"></i>ゲストログイン<a></span>
         </div>
     </div>

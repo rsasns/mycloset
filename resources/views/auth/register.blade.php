@@ -4,7 +4,7 @@
 <div class="outer">
     <div class="inner">
         <div class="text-center">
-            <h1 class="logo mb-4"><i class="fas fa-hashtag color mr-2"></i>My closet</h1>
+            <h1 class="logo mt-4 mb-4"><i class="fas fa-hashtag color mr-2"></i>My closet</h1>
             <div class="center jumbotron">
                 
                 @include('commons.error_messages')
