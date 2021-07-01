@@ -14,7 +14,7 @@ class ChangeUsersTableColumnNullablefalseAddEmailVerifiedAt extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('password')->nullable(false)->change();
+            $table->string('email')->nullable(false)->change();
             $table->timestamp('email_verified_at')->nullable();
         });
     }
@@ -27,7 +27,7 @@ class ChangeUsersTableColumnNullablefalseAddEmailVerifiedAt extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('password')->nullable()->change();
+            $table->string('email')->nullable()->change();
             $table->dropColumn('email_verified_at');
         });
     }
