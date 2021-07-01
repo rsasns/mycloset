@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container">
+    <div class="text-center">
+        <h1 class="logo mb-4"><i class="fas fa-hashtag color mr-2"></i>My closet</h1>
+    </div>
     <div class="inner center jumbotron">
-        <div class="text-center">
-            <h1 class="logo mb-4"><i class="fas fa-hashtag color mr-2"></i>My closet</h1>
-        </div>
         <h4>{{ __('パスワードをリセットする') }}</h4>
         <p>登録したメールアドレスと新しいパスワードを入力してください。</p>
         <hr>

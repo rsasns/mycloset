@@ -18,8 +18,8 @@
                         </div>
                     @endif
                     <div class="media-body">
-                        <div class="row">
-                            <div class="col">
+                        <div class="d-flex justify-content-between">
+                            <div class="">
                                     <h6 class="font-weigth-bold mt-2 mb-0">
                                     {{ $cordinate->user->name}}
                                     </h6>

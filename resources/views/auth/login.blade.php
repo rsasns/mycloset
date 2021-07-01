@@ -3,10 +3,9 @@
 @section('content')
 <div class="outer">
     <div class="inner">
-        <div class="center jumbotron">
-            <div class="text-center">
-                <h1 class="logo mb-4"><i class="fas fa-hashtag color mr-2"></i>My closet</h1>
-                
+        <div class="text-center">
+            <h1 class="logo mb-4"><i class="fas fa-hashtag color mr-2"></i>My closet</h1>
+            <div class="center jumbotron">
                 @include('commons.error_messages')
                 
                 {!! Form::open(['route' => 'login.post']) !!}

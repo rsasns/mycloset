@@ -2,10 +2,11 @@
 
 @section('content')
 <div class="container">
+    <a class="link text-dark" href="{{ route('index') }}"><i class="fas fa-arrow-left mr-2"></i>ログイン画面へ戻る</a>
+    <div class="text-center">
+        <h1 class="logo mb-4"><i class="fas fa-hashtag color mr-2"></i>My closet</h1>
+    </div>
     <div class="inner center jumbotron">
-        <div class="text-center">
-            <h1 class="logo mb-4"><i class="fas fa-hashtag color mr-2"></i>My closet</h1>
-        </div>
         <p></p>
         <h4 class="logo">{{ __('パスワードを忘れた場合') }}</h4>
         <p>登録したメールアドレスにパスワード再設定用のメールを送信します。</p>
@@ -39,6 +40,5 @@
             </form>
         </div>
     </div>
-    <a class="link text-dark" href="{{ route('index') }}"><i class="fas fa-arrow-left mr-2"></i>ログイン画面へ戻る</a>
 </div>
 @endsection
