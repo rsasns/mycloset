@@ -14,9 +14,6 @@ class ChangeUsersTableColumnNullablefalseAddEmailVerifiedAt extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            DB::statement('UPDATE `users` SET `email` = "" WHERE `email` IS NULL');
-            DB::statement('UPDATE `users` SET `password` = "" WHERE `password` IS NULL');
-
             $table->string('email')->nullable(false)->change();
             $table->string('password')->nullable(false)->change();
             $table->timestamp('email_verified_at')->nullable();
