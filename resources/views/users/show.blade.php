@@ -105,15 +105,15 @@
             @foreach ($cordinates as $cordinate)
                 <div class="col-4 p-2">
                     <a class="link" href="{{ route('cordinates.show', $cordinate->id) }}">
-                        <img class="resize" src="https://mycloset-sakataran.s3-ap-northeast-1.amazonaws.com/{{ $cordinate->image }}">
+                        <img class="resize-user" src="https://mycloset-sakataran.s3-ap-northeast-1.amazonaws.com/{{ $cordinate->image }}">
                     </a>
                 </div>
             @endforeach
             </div>
-            </section>
-            <div class="hidden">
-            {{ $cordinates->links() }}
-            </div>
+        </section>
+        <div class="hidden">
+        {{ $cordinates->links() }}
+        </div>
         @else
             <div class="row mt-2">
                 <div class="col-12">

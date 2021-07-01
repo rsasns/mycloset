@@ -95,15 +95,25 @@
             </ul>
         </div>
         @if (count($favorites) > 0)
+        <section class="scroll_area"
+          data-infinite-scroll='{
+            "path": ".pagination a[rel=next]",
+            "append": ".post"
+          }'
+        >
             <div class="row d-flex text-center">
             @foreach ($favorites as $favorite)
                 <div class="col-4 p-2">
                     <a class="link" href="{{ route('cordinates.show', $favorite->id) }}">
-                        <img class="resize" src="https://mycloset-sakataran.s3-ap-northeast-1.amazonaws.com/{{ $favorite->image }}">
+                        <img class="resize-user" src="https://mycloset-sakataran.s3-ap-northeast-1.amazonaws.com/{{ $favorite->image }}">
                     </a>
                 </div>
             @endforeach
             </div>
+        </section>
+        <div class="hidden">
+        {{ $favorites->links() }}
+        </div>
         @else
             <div class="row mt-2">
                 <div class="col-12">

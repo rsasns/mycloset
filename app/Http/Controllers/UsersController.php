@@ -26,13 +26,10 @@ class UsersController extends Controller
         $user->loadRelationshipCounts();
 
         // ユーザの投稿一覧を作成日時の降順で取得
-        $cordinates = $user->cordinates()->orderBy('created_at', 'desc')->paginate(10);
+        $cordinates = $user->cordinates()->orderBy('created_at', 'desc')->paginate(6);
 
         // ユーザ詳細ビューでそれを表示
-        return view('users.show', [
-            'user' => $user,
-            'cordinates' => $cordinates,
-        ]);
+        return view('users.show', compact( 'user', 'cordinates',));
     }
     
     public function edit($id)
@@ -253,7 +250,7 @@ class UsersController extends Controller
         $user->loadRelationshipCounts();
 
         // ユーザのクリップ一覧を投稿作成日時の降順で取得
-        $favorites = $user->favorites()->orderBy('created_at', 'desc')->get();
+        $favorites = $user->favorites()->orderBy('created_at', 'desc')->paginate(6);
 
         // クリップ一覧ビューでそれらを表示
         return view('users.favorites', [

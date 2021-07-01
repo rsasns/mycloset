@@ -122,6 +122,12 @@ span {
     left: 30%;
 }
 /*コーディネート画像*/
+.resize-user {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
 .resize {
     width: 250px;
     height: 400px;
