@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <a class="link text-dark" href="{{ route('index') }}"><i class="fas fa-arrow-left mr-2"></i>ログイン画面へ戻る</a>
-    <div class="text-center">
+    <div class="text-center mt-4 mb-4">
         <h1 class="logo mb-4"><i class="fas fa-hashtag color mr-2"></i>My closet</h1>
     </div>
     <div class="inner center jumbotron">
