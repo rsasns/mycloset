@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class IdentityProvider extends Model
 {
+    protected $primaryKey = ['provider_name', 'provider_id'];
     protected $fillable = ['user_id', 'provider_name', 'provider_id'];
 
     function user()

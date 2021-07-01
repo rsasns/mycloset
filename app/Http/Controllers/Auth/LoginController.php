@@ -91,11 +91,8 @@ class LoginController extends Controller
         return redirect($this->redirectTo);
     }
 
-    protected $primaryKey = 'user_id';
-    
     public function findOrCreateUser($providerUser, $provider)
     {
-        
         $account = IdentityProvider::whereProviderName($provider)
                     ->whereProviderId($providerUser->getId())
                     ->first();
