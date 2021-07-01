@@ -34,10 +34,10 @@ Route::get('/login/{provider}/callback', 'Auth\LoginController@handleProviderCal
 
 // ログイン時の処理
 Route::group(['middleware' => ['verified']], function () {
-    // ユーザ編集機能
-    Route::resource('users', 'UsersController', ['only' => ['edit', 'update', 'destroy']]);
+    // ユーザ機能
+    Route::resource('users', 'UsersController', ['only' => ['show', 'edit', 'update', 'destroy']]);
     // 投稿機能
-    Route::resource('cordinates', 'CordinatesController', ['only' => ['create', 'store', 'edit', 'update','destroy']]);
+    Route::resource('cordinates', 'CordinatesController', ['only' => ['index', 'show', 'create', 'store', 'edit', 'update','destroy']]);
     // コメント機能
     Route::post('cordinates/{id}', 'CommentsController@store')->name('comments.store');
     Route::delete('cordinates/{id}/comment', 'CommentsController@destroy')->name('comments.destroy');
@@ -63,6 +63,8 @@ Route::group(['middleware' => ['verified']], function () {
 });
 
 // 管理者機能
+Route::get('/admin/login', 'admin\AdminLoginController@showLoginform');
+Route::post('/admin/login', 'admin\AdminLoginController@login');
 Route::group(['middleware' => ['auth.admin']], function () {
 	Route::get('/admin', 'admin\AdminTopController@show');
 	Route::post('/admin/logout', 'admin\AdminLogoutController@logout');
@@ -76,9 +78,4 @@ Route::group(['middleware' => ['auth.admin']], function () {
 });
 
 // 制限なしの処理
-Route::resource('users', 'UsersController', ['only' => ['show']]);
-Route::resource('cordinates', 'CordinatesController', ['only' => ['index', 'show']]);
-Route::get('/admin/login', 'admin\AdminLoginController@showLoginform');
-Route::post('/admin/login', 'admin\AdminLoginController@login');
-
 Route::get('/home', 'HomeController@index')->name('home');

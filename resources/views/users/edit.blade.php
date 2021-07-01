@@ -67,7 +67,7 @@
             <div class="col-md-2">
                 {!! Form::text('height', null, ['class' => 'form-control border border-dark']) !!}
             </div>
-            <div class="col-md-7 form-check">
+            <div class="ml-3 form-check">
                 {!! Form::checkbox('height_hidden', 1, $user->height_hidden, ['class' => 'form-check-input']) !!}
                 {!! Form::label('height_hidden', '非公開にする', ['class' => 'form-check-label']) !!}
             </div>
@@ -84,7 +84,7 @@
                     {!! Form::label('women', 'WOMEN') !!}
                 </div>
             </div>
-            <div class="col-md-7 form-check">
+            <div class="ml-3 form-check">
                 {!! Form::checkbox('sex_hidden', 1, $user->sex_hidden, ['class' => 'border border-dark form-check-input']) !!}
                 {!! Form::label('sex_hidden', '非公開にする', ['class' => 'form-check-label']) !!}
             </div>
@@ -94,7 +94,7 @@
             <div class="col-md-2">
                 {!! Form::text('age', null, ['class' => 'form-control border border-dark']) !!}
             </div>
-            <div class="col-md-7 form-check">
+            <div class="ml-3 form-check">
                 {!! Form::checkbox('age_hidden', 1, $user->age_hidden, ['class' => 'form-check-input']) !!}
                 {!! Form::label('age_hidden', '非公開にする', ['class' => 'form-check-label']) !!}
             </div>
