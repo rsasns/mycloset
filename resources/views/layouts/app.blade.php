@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>My closet</title>
+        <meta name="description" content="My closetは、自分を表現し、自分を発見し、好きなものを結びつける場所です。今すぐMy closetに登録し、心躍るコンテンツを探して、魅力的なコンテンツをシェアしよう。">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" type="text/css" href="/style.css">
