@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     @include('commons.navbar')
     <div class="container">
@@ -101,9 +100,9 @@
             "append": ".post"
           }'
         >
-            <div class="row d-flex text-center">
+            <div class="d-flex row post text-center">
             @foreach ($favorites as $favorite)
-                <div class="col-4 p-2">
+                <div class="col-4 p-2 text-wrap">
                     <a class="link" href="{{ route('cordinates.show', $favorite->id) }}">
                         <img class="resize-user" src="https://mycloset-sakataran.s3-ap-northeast-1.amazonaws.com/{{ $favorite->image }}">
                     </a>
@@ -114,6 +113,8 @@
         <div class="hidden">
         {{ $favorites->links() }}
         </div>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
+        <div id="page_top"><a href="#"></a></div>
         @else
             <div class="row mt-2">
                 <div class="col-12">
@@ -125,4 +126,10 @@
             </div>
         @endif
     </div>
+<script>
+var infScroll = new InfiniteScroll( '.scroll_area', {
+  path : ".pagination a[rel=next]",
+  append : ".post"
+});
+</script>
 @endsection

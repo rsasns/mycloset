@@ -26,7 +26,7 @@ class UsersController extends Controller
         $user->loadRelationshipCounts();
 
         // ユーザの投稿一覧を作成日時の降順で取得
-        $cordinates = $user->cordinates()->orderBy('created_at', 'desc')->paginate(6);
+        $cordinates = $user->cordinates()->orderBy('created_at', 'desc')->paginate(3);
 
         // ユーザ詳細ビューでそれを表示
         return view('users.show', compact( 'user', 'cordinates',));
@@ -250,12 +250,9 @@ class UsersController extends Controller
         $user->loadRelationshipCounts();
 
         // ユーザのクリップ一覧を投稿作成日時の降順で取得
-        $favorites = $user->favorites()->orderBy('created_at', 'desc')->paginate(6);
+        $favorites = $user->favorites()->orderBy('created_at', 'desc')->paginate(3);
 
         // クリップ一覧ビューでそれらを表示
-        return view('users.favorites', [
-            'user' => $user,
-            'favorites' => $favorites,
-        ]);
+        return view('users.favorites', compact('user', 'favorites'));
     }
 }

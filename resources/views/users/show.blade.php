@@ -101,7 +101,7 @@
             "append": ".post"
           }'
         >
-            <div class="row d-flex text-center">
+            <div class="row d-flex post text-center">
             @foreach ($cordinates as $cordinate)
                 <div class="col-4 p-2">
                     <a class="link" href="{{ route('cordinates.show', $cordinate->id) }}">
@@ -127,4 +127,10 @@
     </div>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
     <div id="page_top"><a href="#"></a></div>
+<script>
+var infScroll = new InfiniteScroll( '.scroll_area', {
+  path : ".pagination a[rel=next]",
+  append : ".post"
+});
+</script>
 @endsection

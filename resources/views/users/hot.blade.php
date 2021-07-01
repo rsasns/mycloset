@@ -14,7 +14,7 @@
             <div class="media-body">
                 <div class="row">
                     <div class="col">
-                        <h6 class="mt-0 mb-0">{{ $attentionUser->name }}</h6>
+                        <h6 class="small mt-0 mb-0">{{ $attentionUser->name }}</h6>
                         <small class="mr-1"><small class="font-weight-bold">{{ $attentionUser->followers_count }}</small>フォロワー</small>
                     </div>
                 <div class="col text-right mt-2">

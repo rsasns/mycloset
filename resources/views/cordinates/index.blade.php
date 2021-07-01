@@ -20,8 +20,8 @@
                         </div>
                     @endif
                     <div class="media-body">
-                        <div class="row">
-                            <div class="col">
+                        <div class="d-flex justify-content-between">
+                            <div class="">
                                     <h6 class="font-weigth-bold mt-2 mb-0">
                                     {{ $hotCordinate->user->name}}
                                     </h6>
@@ -30,7 +30,7 @@
                                 @endif
                             </div>
                             {{-- フォローボタンの表示 --}}
-                            <div class="col text-right mt-2">
+                            <div class="text-right mt-2">
                                 @if (Auth::id() != $hotCordinate->user->id)
                                     @if (Auth::user()->is_following($hotCordinate->user->id))
                                         {{-- アンフォロー --}}
@@ -120,8 +120,8 @@
                         </div>
                     @endif
                     <div class="media-body">
-                        <div class="row">
-                            <div class="col">
+                        <div class="d-flex justify-content-between">
+                            <div class="">
                                     <h6 class="font-weigth-bold mt-2 mb-0">
                                     {{ $cordinate->user->name}}
                                     </h6>
@@ -130,7 +130,7 @@
                                 @endif
                             </div>
                             {{-- フォローボタンの表示 --}}
-                            <div class="col text-right mt-2">
+                            <div class="text-right mt-2">
                                 @include('commons.follow_button')
                             </div>
                         </div>

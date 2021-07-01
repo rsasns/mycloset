@@ -121,16 +121,17 @@ span {
     top: 0;
     left: 30%;
 }
-/*コーディネート画像*/
-.resize-user {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-}
 
+/*コーディネート画像*/
 .resize {
     width: 250px;
     height: 400px;
+    object-fit: cover;
+}
+
+.resize-user {
+    width: 100%;
+    height: auto;
     object-fit: cover;
 }
 
