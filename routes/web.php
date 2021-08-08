@@ -15,6 +15,7 @@ Auth::routes(['verify' => true]);
 Route::get('/', 'CordinatesController@index')->name('index');
 Route::get('/feed', 'CordinatesController@feed')->name('feed');
 Route::get('/search', 'CordinatesController@search')->name('search');
+Route::get('/search/cordinates', 'CordinatesController@cordinatesearchshow')->name('cordinatesearchshow');
 
 // ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');

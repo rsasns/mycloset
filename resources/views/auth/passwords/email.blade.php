@@ -32,7 +32,7 @@
 
                 <div class="ml-1 form-group row">
                     <button type="submit" class="btn btn-dark rounded-pill">
-                        {{ __('メールを送信する') }}
+                        {{ __('送信する') }}
                     </button>
                 </div>
             </form>

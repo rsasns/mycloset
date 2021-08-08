@@ -66,27 +66,45 @@ class CordinatesController extends Controller
     {
         $keyword = $request->input('keyword');
         $brand = $request->input('brand');
+        $sex = $request->input('sex');
+        $brandName = '';
         
         if (!empty($keyword))
         {
-            $brandName = '';
-            
             $cordinates = Cordinate::where('text', 'like', '%' . $keyword . '%')
             ->orWhereHas('tags', function ($query) use ($keyword){
                 $query->where('tag', 'like', '%' . $keyword . '%');
             })
-            ->get();
+            ->paginate(6);
         } 
-        elseif (!empty($brand))
+        if (!empty($brand))
         {
             $brands = Brand::where('brand', 'like', '%' . $brand . '%')->value('id');
             $brandName = Brand::where('brand', 'like', '%' . $brand . '%')->value('brand');
             $cordinates = Cordinate::whereHas('items', function ($query) use ($brands){
                 $query->where('brand_id', 'like', '%' . $brands . '%');
             })
-            ->get();
-        } else {
-            return redirect('/');
+            ->paginate(6);
+        }
+        if (!is_null($sex))
+        {
+            // 検索された性別に該当するユーザのidを取得して配列にする
+            $userIds = User::with('cordinates')->where('sex', $sex)->pluck('id')->toArray();
+            if (!is_null($userIds))
+            {
+                // それらのユーザが所有する投稿に絞り込み新着順に並べ替え
+                $cordinates = Cordinate::whereIn('user_id', $userIds)
+                ->orderBy('created_at','desc')->paginate(6);
+            } else {
+                // そうでなければ空白
+                $cordinates = '';
+            }
+            
+            // ALL用
+            if ($sex == 2)
+            {
+                $cordinates = Cordinate::orderBy('created_at','desc')->paginate(6);
+            }
         }
         
         // 全ユーザのフォロワー降順に取得（#人気ユーザ用）
@@ -96,8 +114,13 @@ class CordinatesController extends Controller
         // 全タグの投稿との紐づけ降順に取得（#注目タグ用）
         $hotTags = Tag::withCount('cordinates')
         ->orderBy('cordinates_count','desc')->limit(6)->get();
-        
-        return view('search', compact('cordinates', 'attentionUsers', 'keyword', 'brandName', 'hotTags'));
+        return view('search', compact('cordinates', 'attentionUsers', 'keyword', 'brandName', 'sex', 'hotTags'));
+    }
+    
+    public function cordinatesearchshow()
+    {
+        // コーディネート検索画面を表示
+        return view('cordinatesearch');
     }
     
     public function show($id)

@@ -11,10 +11,21 @@
                 <p class="lead">
                     @if(!empty($keyword))
                     {{ $keyword }}
-                    @else(!empty($brandName))
+                    @endif
+                    @if(!empty($brandName))
                     ブランド：{{ $brandName }}
                     @endif
-                    の検索結果</p>
+                    @if(!is_null($sex))
+                        @if($sex == 0)
+                        性別：MEN
+                        @elseif($sex == 1)
+                        性別：WOMEN
+                        @elseif($sex == 2)
+                        性別：ALL
+                        @endif
+                    @endif
+                    の検索結果
+                </p>
                 {{-- 投稿一覧 --}}
                 @include('cordinates.search')
             </div>

@@ -8,7 +8,7 @@
                 {{ csrf_field()}}
                 {{method_field('get')}}
                 <div class="form-group">
-                <input type="text" class="form-control bg-light" name="keyword"  value="{{request('keyword')}}" placeholder="キーワードで検索">
+                <input type="text" class="form-control bg-light" name="keyword"  value="{{request('keyword')}}" placeholder="キーワードやタグで検索">
                 </div>
                 <button type="submit" class="btn"><i class="fas fa-search"></i></button>
             </form>

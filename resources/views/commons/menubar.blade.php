@@ -1,6 +1,9 @@
 @if (Auth::check())
     {!! link_to_route('cordinates.create', '投稿する', ['user' => Auth::user()->user_id], ['class' => 'btn btn-block btn-outline-color rounded-pill mb-2']) !!}
     <div class="none">
+        <p class="lead"><i class="fas fa-search mr-1 mt-3"></i>探す</p>
+        <hr>
+        <p><a class="link text-secondary" href="{{ route('cordinatesearchshow') }}">コーディネートを探す</a></p>
         <p class="lead"><i class="fab fa-hotjar mr-1 mt-3"></i>トレンドタグ</p>
         <hr>
         <div class="d-flex flex-wrap">
